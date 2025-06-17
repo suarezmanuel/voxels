@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <fstream>
 
 // Forward declarations for helper functions
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -17,38 +18,6 @@ void checkCompileErrors(unsigned int shader, std::string type);
 // Settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
-
-// Vertex Shader Source Code
-const char *vertexShaderSource = R"glsl(
-    #version 330 core
-    layout (location = 0) in vec3 aPos;
-    layout (location = 1) in vec3 aColor;
-
-    out vec3 ourColor;
-
-    uniform mat4 model;
-    uniform mat4 view;
-    uniform mat4 projection;
-
-    void main()
-    {
-        gl_Position = projection * view * model * vec4(aPos, 1.0);
-        ourColor = aColor;
-    }
-)glsl";
-
-// Fragment Shader Source Code
-const char *fragmentShaderSource = R"glsl(
-    #version 330 core
-    out vec4 FragColor;
-
-    in vec3 ourColor;
-
-    void main()
-    {
-        FragColor = vec4(ourColor, 1.0);
-    }
-)glsl";
 
 int main()
 {
@@ -73,7 +42,7 @@ int main()
         return -1;
     }
     glfwMakeContextCurrent(window);
-    // THIS IS THE CRUCIAL PART FOR MACOS
+    // crucial for macos
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // 3. Initialize GLAD
@@ -88,14 +57,22 @@ int main()
     // Configure global OpenGL state
     glEnable(GL_DEPTH_TEST);
 
+    std::ifstream is_vs("./shaders/vertex.glsl");
+    const std::string f_vs{std::istreambuf_iterator<char>(is_vs), std::istreambuf_iterator<char>()};
+    const char* vs_cstring = f_vs.c_str();
+
+    std::ifstream is_fs("./shaders/fragment.glsl");
+    const std::string f_fs{std::istreambuf_iterator<char>(is_fs), std::istreambuf_iterator<char>()};
+    const char* fs_cstring = f_fs.c_str();
+    
     // 5. Build and compile our shader program
     unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    glShaderSource(vertexShader, 1, &vs_cstring, NULL);
     glCompileShader(vertexShader);
     checkCompileErrors(vertexShader, "VERTEX");
 
     unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+    glShaderSource(fragmentShader, 1, &fs_cstring, NULL);
     glCompileShader(fragmentShader);
     checkCompileErrors(fragmentShader, "FRAGMENT");
 
@@ -127,6 +104,7 @@ int main()
         4, 7, 3,  3, 0, 4, // Left
         1, 5, 6,  6, 2, 1  // Right
     };
+
     unsigned int VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
