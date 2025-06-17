@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/manuel/Desktop/voxels/src/glad.c" "CMakeFiles/VoxelCube.dir/src/glad.c.o" "gcc" "CMakeFiles/VoxelCube.dir/src/glad.c.o.d"
+  "/Users/manuel/Desktop/voxels/extern/glad/glad.c" "CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o" "gcc" "CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o.d"
   "/Users/manuel/Desktop/voxels/main.cpp" "CMakeFiles/VoxelCube.dir/main.cpp.o" "gcc" "CMakeFiles/VoxelCube.dir/main.cpp.o.d"
   )
 

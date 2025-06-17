@@ -129,6 +129,30 @@ VoxelCube/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/build
 .PHONY : VoxelCube/fast
 
+extern/glad/glad.o: extern/glad/glad.c.o
+.PHONY : extern/glad/glad.o
+
+# target to build an object file
+extern/glad/glad.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o
+.PHONY : extern/glad/glad.c.o
+
+extern/glad/glad.i: extern/glad/glad.c.i
+.PHONY : extern/glad/glad.i
+
+# target to preprocess a source file
+extern/glad/glad.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/extern/glad/glad.c.i
+.PHONY : extern/glad/glad.c.i
+
+extern/glad/glad.s: extern/glad/glad.c.s
+.PHONY : extern/glad/glad.s
+
+# target to generate assembly for a file
+extern/glad/glad.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/extern/glad/glad.c.s
+.PHONY : extern/glad/glad.c.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -153,30 +177,6 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-src/glad.o: src/glad.c.o
-.PHONY : src/glad.o
-
-# target to build an object file
-src/glad.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/src/glad.c.o
-.PHONY : src/glad.c.o
-
-src/glad.i: src/glad.c.i
-.PHONY : src/glad.i
-
-# target to preprocess a source file
-src/glad.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/src/glad.c.i
-.PHONY : src/glad.c.i
-
-src/glad.s: src/glad.c.s
-.PHONY : src/glad.s
-
-# target to generate assembly for a file
-src/glad.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/src/glad.c.s
-.PHONY : src/glad.c.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -186,12 +186,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... VoxelCube"
+	@echo "... extern/glad/glad.o"
+	@echo "... extern/glad/glad.i"
+	@echo "... extern/glad/glad.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... src/glad.o"
-	@echo "... src/glad.i"
-	@echo "... src/glad.s"
 .PHONY : help
 
 

@@ -83,30 +83,30 @@ CMakeFiles/VoxelCube.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/VoxelCube.dir/main.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/manuel/Desktop/voxels/main.cpp -o CMakeFiles/VoxelCube.dir/main.cpp.s
 
-CMakeFiles/VoxelCube.dir/src/glad.c.o: CMakeFiles/VoxelCube.dir/flags.make
-CMakeFiles/VoxelCube.dir/src/glad.c.o: /Users/manuel/Desktop/voxels/src/glad.c
-CMakeFiles/VoxelCube.dir/src/glad.c.o: CMakeFiles/VoxelCube.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manuel/Desktop/voxels/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/VoxelCube.dir/src/glad.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/VoxelCube.dir/src/glad.c.o -MF CMakeFiles/VoxelCube.dir/src/glad.c.o.d -o CMakeFiles/VoxelCube.dir/src/glad.c.o -c /Users/manuel/Desktop/voxels/src/glad.c
+CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o: CMakeFiles/VoxelCube.dir/flags.make
+CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o: /Users/manuel/Desktop/voxels/extern/glad/glad.c
+CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o: CMakeFiles/VoxelCube.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manuel/Desktop/voxels/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o -MF CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o.d -o CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o -c /Users/manuel/Desktop/voxels/extern/glad/glad.c
 
-CMakeFiles/VoxelCube.dir/src/glad.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/VoxelCube.dir/src/glad.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/manuel/Desktop/voxels/src/glad.c > CMakeFiles/VoxelCube.dir/src/glad.c.i
+CMakeFiles/VoxelCube.dir/extern/glad/glad.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/VoxelCube.dir/extern/glad/glad.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/manuel/Desktop/voxels/extern/glad/glad.c > CMakeFiles/VoxelCube.dir/extern/glad/glad.c.i
 
-CMakeFiles/VoxelCube.dir/src/glad.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/VoxelCube.dir/src/glad.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/manuel/Desktop/voxels/src/glad.c -o CMakeFiles/VoxelCube.dir/src/glad.c.s
+CMakeFiles/VoxelCube.dir/extern/glad/glad.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/VoxelCube.dir/extern/glad/glad.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/manuel/Desktop/voxels/extern/glad/glad.c -o CMakeFiles/VoxelCube.dir/extern/glad/glad.c.s
 
 # Object files for target VoxelCube
 VoxelCube_OBJECTS = \
 "CMakeFiles/VoxelCube.dir/main.cpp.o" \
-"CMakeFiles/VoxelCube.dir/src/glad.c.o"
+"CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o"
 
 # External object files for target VoxelCube
 VoxelCube_EXTERNAL_OBJECTS =
 
 VoxelCube.app/Contents/MacOS/VoxelCube: CMakeFiles/VoxelCube.dir/main.cpp.o
-VoxelCube.app/Contents/MacOS/VoxelCube: CMakeFiles/VoxelCube.dir/src/glad.c.o
+VoxelCube.app/Contents/MacOS/VoxelCube: CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o
 VoxelCube.app/Contents/MacOS/VoxelCube: CMakeFiles/VoxelCube.dir/build.make
 VoxelCube.app/Contents/MacOS/VoxelCube: CMakeFiles/VoxelCube.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/manuel/Desktop/voxels/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable VoxelCube.app/Contents/MacOS/VoxelCube"

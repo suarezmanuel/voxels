@@ -1,7 +1,7 @@
 set -e # if a command fails, exit immediatly
 
 if [ -z "$1" ]; then
-    echo "missing flag parameter, e.g. ./rebuild.bash {MACHINE}\n'MACHINE' = MAC, WIN"
+    echo "missing flag parameter, e.g. ./rebuild.bash {MACHINE}\n'MACHINE' = MAC, UNIX"
     exit 1
 fi
 
@@ -14,6 +14,6 @@ echo $1
 
 if [ $1 == "MAC" ]; then
     open VoxelCube.app
-elif [ $1 == "WIN" ]; then
+elif [ $1 == "UNIX" ]; then
     ./VoxelCube.exe
 fi

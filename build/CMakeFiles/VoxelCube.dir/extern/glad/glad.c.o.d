@@ -1,5 +1,5 @@
-CMakeFiles/VoxelCube.dir/src/glad.c.o: \
-  /Users/manuel/Desktop/voxels/src/glad.c \
+CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o: \
+  /Users/manuel/Desktop/voxels/extern/glad/glad.c \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/stdio.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/_stdio.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/sys/cdefs.h \
