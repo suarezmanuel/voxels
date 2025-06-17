@@ -15,5 +15,5 @@ echo $1
 if [ $1 == "MAC" ]; then
     open VoxelCube.app
 elif [ $1 == "UNIX" ]; then
-    ./VoxelCube.exe
+    ./VoxelCube
 fi
