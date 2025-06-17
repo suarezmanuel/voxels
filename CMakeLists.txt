@@ -48,28 +48,17 @@ elseif(WIN32)
 elseif(UNIX AND NOT APPLE)
     message(STATUS "Configuring for Linux")
 
+    # On Linux, we find system-wide libraries using find_package.
+    # This is the standard approach.
     find_package(glfw3 REQUIRED)
     find_package(OpenGL REQUIRED)
 
-    # Check if the modern "imported target" for GLFW exists.
-    # Some older system packages for GLFW might not provide this.
-    if(TARGET glfw3::glfw)
-        # Modern CMake approach (preferred)
-        message(STATUS "Linking against modern GLFW3 target: glfw3::glfw")
-        target_link_libraries(VoxelCube PRIVATE
-            glfw3::glfw
-            OpenGL::GL
-        )
-    else()
-        # Legacy CMake approach (fallback for older systems)
-        message(STATUS "Modern GLFW3 target not found. Using legacy variables.")
-        # Manually add include directories and link libraries using the old variables
-        target_include_directories(VoxelCube PRIVATE ${GLFW3_INCLUDE_DIRS})
-        target_link_libraries(VoxelCube PRIVATE
-            ${GLFW3_LIBRARIES}
-            OpenGL::GL
-        )
-    endif()
+    # We link against the "imported targets" that find_package provides.
+    # This automatically handles include directories and library paths.
+    target_link_libraries(VoxelCube PRIVATE
+        glfw3::glfw
+        OpenGL::GL
+    )
 # -----------------------------
 
 else()
