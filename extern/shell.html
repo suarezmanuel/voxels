@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Voxel Cube</title>
+    <style>
+      /* Make the canvas take up the whole screen */
+      body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
+      canvas.emscripten { border: 0px none; background-color: black; width: 100%; height: 100%; }
+    </style>
+  </head>
+  <body>
+    <!-- The canvas element that Emscripten will use -->
+    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+    
+    <!-- ======================= THIS IS THE FIX ======================= -->
+    <script type='text/javascript'>
+      var Module = {
+        // Find our canvas element by its ID and assign it to the Emscripten module.
+        // This MUST be done before the main script loads.
+        canvas: (() => document.getElementById('canvas'))()
+      };
+    </script>
+    <!-- =============================================================== -->
+    
+    <!-- Emscripten's main script will be inserted here by the build process -->
+    {{{ SCRIPT }}}
+  </body>
+</html>
