@@ -3,7 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o.d"
   "CMakeFiles/VoxelCube.dir/main.cpp.o"
   "CMakeFiles/VoxelCube.dir/main.cpp.o.d"
-  "VoxelCube"
+  "VoxelCube.app/Contents/MacOS/VoxelCube"
   "VoxelCube.pdb"
 )
 

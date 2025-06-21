@@ -13,7 +13,8 @@ cmake --build .
 echo $1
 
 if [ $1 == "MAC" ]; then
-    open VoxelCube.app
+    # open VoxelCube.app
+    ./VoxelCube.app/Contents/MacOS/VoxelCube
 elif [ $1 == "UNIX" ]; then
     ./VoxelCube
 fi
