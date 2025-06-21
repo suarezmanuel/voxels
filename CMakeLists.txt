@@ -56,17 +56,24 @@ elseif(WIN32)
 elseif(UNIX AND NOT APPLE)
     message(STATUS "Configuring for Linux")
 
-    # On Linux, we find system-wide libraries using find_package.
-    # This is the standard approach.
-    find_package(glfw3 REQUIRED)
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(GLFW3 REQUIRED glfw3)            # uses pkg-config
+
     find_package(OpenGL REQUIRED)
 
-    # We link against the "imported targets" that find_package provides.
-    # This automatically handles include directories and library paths.
-    target_link_libraries(VoxelCube PRIVATE
-        glfw3::glfw
-        OpenGL::GL
+    target_include_directories(VoxelCube PRIVATE
+        ${GLFW3_INCLUDE_DIRS}
     )
+
+    target_link_libraries(VoxelCube PRIVATE
+        ${GLFW3_LIBRARIES}      # should expand to -lglfw
+        ${OPENGL_LIBRARIES}     # typically -lGL
+        ${CMAKE_DL_LIBS}        # -ldl
+        pthread                 # -lpthread
+        X11                     # -lX11
+        m                       # -lm
+    )
+
 # -----------------------------
 
 else()

@@ -11,10 +11,11 @@ cd build
 cmake ..
 cmake --build .
 echo $1
+cd ..
 
 if [ $1 == "MAC" ]; then
     # open VoxelCube.app
-    ./VoxelCube.app/Contents/MacOS/VoxelCube
+    ./build/VoxelCube.app/Contents/MacOS/VoxelCube
 elif [ $1 == "UNIX" ]; then
-    ./VoxelCube
+    ./build/VoxelCube
 fi
