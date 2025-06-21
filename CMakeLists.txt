@@ -13,6 +13,7 @@ add_executable(VoxelCube main.cpp extern/glad/glad.c)
 target_include_directories(VoxelCube PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/extern
     ${CMAKE_CURRENT_SOURCE_DIR}/extern/glm
+    ${CMAKE_CURRENT_SOURCE_DIR}/extern/stb_image
 )
 
 # --- 4. Platform-Specific Configuration ---
@@ -35,6 +36,13 @@ if(APPLE)
         ${CMAKE_CURRENT_SOURCE_DIR}/shaders
         $<TARGET_FILE_DIR:VoxelCube>/../Resources/shaders
         COMMENT "Copying shaders to app bundle."
+    )
+
+    add_custom_command(TARGET VoxelCube POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/textures
+        $<TARGET_FILE_DIR:VoxelCube>/../Resources/textures
+        COMMENT "Copying textures to app bundle."
     )
     
 elseif(WIN32)

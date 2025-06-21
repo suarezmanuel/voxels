@@ -1092,4 +1092,5 @@ CMakeFiles/VoxelCube.dir/main.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/c++/v1/__filesystem/u8path.h \
   /Users/manuel/Desktop/voxels/shader.h \
-  /Users/manuel/Desktop/voxels/program.h
+  /Users/manuel/Desktop/voxels/program.h \
+  /Users/manuel/Desktop/voxels/extern/stb_image/stb_image.h

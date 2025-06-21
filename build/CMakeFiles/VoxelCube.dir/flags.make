@@ -5,7 +5,7 @@
 # compile CXX with /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++
 C_DEFINES = 
 
-C_INCLUDES = -I/Users/manuel/Desktop/voxels/extern -I/Users/manuel/Desktop/voxels/extern/glm -I/Users/manuel/Desktop/voxels/extern/glfw-3.4.bin.MACOS/include -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks
+C_INCLUDES = -I/Users/manuel/Desktop/voxels/extern -I/Users/manuel/Desktop/voxels/extern/glm -I/Users/manuel/Desktop/voxels/extern/stb_image -I/Users/manuel/Desktop/voxels/extern/glfw-3.4.bin.MACOS/include -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks
 
 C_FLAGSarm64 =  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk
 
@@ -13,7 +13,7 @@ C_FLAGS =  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Plat
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/manuel/Desktop/voxels/extern -I/Users/manuel/Desktop/voxels/extern/glm -I/Users/manuel/Desktop/voxels/extern/glfw-3.4.bin.MACOS/include -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks
+CXX_INCLUDES = -I/Users/manuel/Desktop/voxels/extern -I/Users/manuel/Desktop/voxels/extern/glm -I/Users/manuel/Desktop/voxels/extern/stb_image -I/Users/manuel/Desktop/voxels/extern/glfw-3.4.bin.MACOS/include -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks
 
 CXX_FLAGSarm64 = -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk
 
