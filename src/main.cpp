@@ -1,0 +1,116 @@
+// #include "../headers/helpers.h"
+// #include "../headers/shader.h"
+#include "../headers/program.h"
+#include "../headers/camera.h"
+#include "../headers/generation.h"
+#include <unordered_set>
+
+int main() {
+    if (!glfwInit()) {
+        std::cerr << "ERROR: Failed to initialize GLFW" << std::endl;
+        return -1;
+    }
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    // 2. Create a Window
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "💣NeriaCraft💣", NULL, NULL);
+    if (window == NULL) {
+        std::cerr << "ERROR: Failed to create GLFW window" << std::endl;
+        glfwTerminate();
+        return -1;
+    }
+    glfwMakeContextCurrent(window);
+    // crucial for macos
+    glfwSetFramebufferSizeCallback(window, render_helper::framebuffer_size_callback);
+
+    glfwSetCursorPosCallback(window, camera::mouseMovementCallback);
+    if (glfwRawMouseMotionSupported()) {
+        glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_CURSOR_DISABLED);
+    } else {
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
+    // 3. Initialize GLAD
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        std::cerr << "ERROR: Failed to initialize GLAD" << std::endl;
+        return -1;
+    }
+
+    std::cout << "Successfully initialized OpenGL!" << std::endl;
+    std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
+
+    // Configure global OpenGL state
+    glEnable(GL_DEPTH_TEST);
+
+    Program* ShaderProgram = new Program("./shaders/vertex.glsl", "./shaders/fragment.glsl");
+    generator* gen = new generator(ShaderProgram);
+    camera::updateCamera();
+
+    float lastFrame = glfwGetTime();
+    int frame_count = 0;
+    float acc_time = 0;
+
+    while (!glfwWindowShouldClose(window)) {
+
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        float currentFrame = glfwGetTime();
+        float deltaTime = currentFrame - lastFrame;
+        acc_time += deltaTime;
+        lastFrame = currentFrame;
+
+        if (acc_time >= 1) {
+            std::cout << "FPS: " << frame_count << std::endl;
+            acc_time = 0;
+            frame_count = 0;
+        }
+
+        render_helper::processInput(window, deltaTime, cameraPos, front, up);
+
+        camera::updateCamera();
+
+        glm::mat4 model = glm::mat4(1.0f);
+        glm::mat4 view = glm::mat4(1.0f);
+        glm::mat4 projection = glm::mat4(1.0f);
+
+        // model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+        view = glm::lookAt(cameraPos, cameraPos + front, up);
+        projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 1000000.0f);
+    
+        glm::vec3 light_position = cameraPos;
+
+        glUniform3fv(glGetUniformLocation(ShaderProgram->get_id(), "light_position"), 1, glm::value_ptr(light_position));
+
+        std::unordered_set<glm::ivec3, IVec3Hash> current_required_chunks;
+        calculate_required_chunks(current_required_chunks);
+
+        gen->start_generation_tasks(current_required_chunks);
+        gen->prune_unnecessary_chunks();
+        gen->process_finished_mesh();
+        gen->draw_all(ShaderProgram, view, projection);
+
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+
+        frame_count++;
+    }
+
+    // glDeleteVertexArrays(1, &VAO);
+    // glDeleteBuffers(1, &VBOPos);
+    // glDeleteBuffers(1, &VBONormals);
+    glDeleteProgram(ShaderProgram->get_id());
+    delete ShaderProgram;
+
+    glfwTerminate();
+    return 0;
+}

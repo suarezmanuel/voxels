@@ -234,6 +234,9 @@ OpenGLCube_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 OpenGLCube_SOURCE_DIR:STATIC=/Users/manuel/Desktop/voxels
 
+//The directory containing a CMake configuration file for TBB.
+TBB_DIR:PATH=/opt/homebrew/lib/cmake/TBB
+
 
 ########################
 # INTERNAL cache entries

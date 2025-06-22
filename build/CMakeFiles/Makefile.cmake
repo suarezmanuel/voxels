@@ -113,6 +113,10 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/opt/homebrew/Cellar/cmake/3.29.2/share/cmake/Modules/Platform/Darwin-Initialize.cmake"
   "/opt/homebrew/Cellar/cmake/3.29.2/share/cmake/Modules/Platform/Darwin.cmake"
   "/opt/homebrew/Cellar/cmake/3.29.2/share/cmake/Modules/Platform/UnixPaths.cmake"
+  "/opt/homebrew/lib/cmake/TBB/TBBConfig.cmake"
+  "/opt/homebrew/lib/cmake/TBB/TBBConfigVersion.cmake"
+  "/opt/homebrew/lib/cmake/TBB/TBBTargets-release.cmake"
+  "/opt/homebrew/lib/cmake/TBB/TBBTargets.cmake"
   )
 
 # The corresponding makefile is:

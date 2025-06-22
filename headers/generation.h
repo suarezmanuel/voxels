@@ -1,0 +1,201 @@
+#pragma once
+#include "helpers.h"
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+#include <tbb/concurrent_queue.h>
+#include <tbb/task_group.h>
+#define CHUNK_LENGTH 16
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
+class generator {
+
+public:
+
+    generator (Program* ShaderProgram) {
+
+        glGenTextures(1, &texture);
+        glBindTexture(GL_TEXTURE_2D, texture);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+        int width, height, nrChannels;
+        stbi_set_flip_vertically_on_load(true);
+        unsigned char *data = stbi_load("./textures/atlas.png", &width, &height, &nrChannels, 0);
+
+        if (data)
+        {
+            std::cout << "nrChannels: " << nrChannels << std::endl;
+            // Note: If your atlas has transparency (alpha channel), use GL_RGBA
+            GLenum format = (nrChannels == 4) ? GL_RGBA : GL_RGB;
+            glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+            glGenerateMipmap(GL_TEXTURE_2D);
+        } else {
+            std::cout << "Failed to load texture" << std::endl;
+        }
+
+        glUniform1i(glGetUniformLocation(ShaderProgram->get_id(), "textureSampler"), 0);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture);
+
+        stbi_image_free(data);
+    }
+
+    void start_generation_tasks (const std::unordered_set<glm::ivec3, IVec3Hash>& required) {
+        this->current_needed_chunks = required;
+
+        for (const auto& pos : this->current_needed_chunks) {
+            if (!active_chunks.count(pos)) { // Not active...
+                std::lock_guard<std::mutex> lock(m_pending_mutex);
+                // ...and not pending. The .insert(pos).second trick checks if it was newly inserted.
+                if (m_pending_generation.insert(pos).second) { 
+                    task_group.run([this, pos]() { generate_chunk(pos); });
+                }
+            }
+        }
+    }
+
+    void prune_unnecessary_chunks () {
+        // delete all chunks in memory that are not needed
+        std::erase_if(active_chunks, [&](const auto& pair) {
+            const glm::ivec3& pos = pair.first;
+            return !this->current_needed_chunks.count(pos);
+        });
+    }
+
+    void process_finished_mesh () {
+
+        const auto budget = std::chrono::milliseconds(5);
+        auto start_time = std::chrono::high_resolution_clock::now();
+
+        chunkData mesh;
+        // pop all data from finished_mesh_queue
+        while (finished_mesh_queue.try_pop(mesh)) {
+
+            if (!this->current_needed_chunks.count(mesh.pos)) continue;
+
+            auto now = std::chrono::high_resolution_clock::now();
+            if (now - start_time > budget) {
+                break; // if popping for 5 ms straight, stop. 
+            }
+
+            auto chunk_ptr = std::make_unique<chunkData>();
+            chunk_ptr->pos = std::move(mesh.pos);
+            chunk_ptr->vertices = std::move(mesh.vertices);
+            chunk_ptr->normals = std::move(mesh.normals);
+            chunk_ptr->textures = std::move(mesh.textures);
+
+            set_vao_vbo(*chunk_ptr);
+
+            active_chunks[chunk_ptr->pos] = std::move(chunk_ptr); 
+        }
+    }
+
+    void draw_all (Program* ShaderProgram, const glm::mat4& view, const glm::mat4& projection) {
+        
+        glUseProgram(ShaderProgram->get_id());
+
+        // Set uniforms that are the same for all chunks ONCE before the loop
+        glUniformMatrix4fv(glGetUniformLocation(ShaderProgram->get_id(), "view"), 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(glGetUniformLocation(ShaderProgram->get_id(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+        // Bind the texture atlas once
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, this->texture);
+        glUniform1i(glGetUniformLocation(ShaderProgram->get_id(), "textureSampler"), 0);
+
+        // Get the location of the model uniform ONCE before the loop for efficiency
+        GLint modelLoc = glGetUniformLocation(ShaderProgram->get_id(), "model");
+
+        for (const auto& pair : active_chunks) {
+            const chunkData* data = pair.second.get();
+            if (data->vertices.size() == 0) continue;
+
+            glm::mat4 model = glm::mat4(1.0f);
+            // The key 'pos' is the chunk's grid coordinate (e.g., (1, 0, 2)).
+            // We multiply by CHUNK_LENGTH to get the real world coordinate (e.g., (16, 0, 32)).
+            model = glm::translate(model, glm::vec3(data->pos) * (float)CHUNK_LENGTH);
+
+            // 2. Send this chunk-specific model matrix to the shader.
+            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+            glBindVertexArray(data->vao);
+            glDrawArrays(GL_TRIANGLES, 0, data->vertices.size() / 3);
+        }
+    }
+
+private:
+
+    unsigned int texture;
+    
+    std::unordered_set<glm::ivec3, IVec3Hash> current_needed_chunks;
+
+    std::unordered_set<glm::ivec3, IVec3Hash> m_pending_generation;
+    std::mutex m_pending_mutex;
+
+    // final info passed to GPU
+    std::unordered_map<glm::ivec3, std::unique_ptr<chunkData>, IVec3Hash> active_chunks;
+  
+    tbb::task_group task_group;
+    tbb::concurrent_queue<chunkData> finished_mesh_queue;   
+ 
+    void set_vao_vbo (chunkData& mesh) {
+        glGenVertexArrays(1, &mesh.vao);
+        glBindVertexArray(mesh.vao);
+
+        glGenBuffers(1, &mesh.vbo_pos);
+        glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo_pos);
+        glBufferData(GL_ARRAY_BUFFER, mesh.vertices.size() * sizeof(mesh.vertices[0]), &mesh.vertices[0], GL_STATIC_DRAW);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+
+        glGenBuffers(1, &mesh.vbo_norm);
+        glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo_norm);
+        glBufferData(GL_ARRAY_BUFFER, mesh.normals.size() * sizeof(mesh.normals[0]), &mesh.normals[0], GL_STATIC_DRAW);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(1);
+
+        glGenBuffers(1, &mesh.vbo_tex);
+        glBindBuffer(GL_ARRAY_BUFFER, mesh.vbo_tex);
+        glBufferData(GL_ARRAY_BUFFER, mesh.textures.size() * sizeof(mesh.textures[0]), &mesh.textures[0], GL_STATIC_DRAW);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(2);
+    }
+
+    void calculate_mesh (chunkData& chunk) {
+        for (int i=0; i < CHUNK_LENGTH; i++) {
+            for (int j=0; j < CHUNK_LENGTH; j++) {
+                generator_helper::createBlock(chunk.pos.x + i,0, chunk.pos.y + j, 1, 25+i%32, 20+j%64, chunk.vertices, chunk.normals, chunk.textures);
+            }
+        }
+    }
+
+    void generate_chunk (glm::ivec3 pos) {
+        chunkData chunk;
+        chunk.pos = pos;
+        calculate_mesh(chunk); // this is the heavy stuff
+        finished_mesh_queue.push(std::move(chunk));
+
+        {
+            std::lock_guard<std::mutex> lock(m_pending_mutex);
+            m_pending_generation.erase(pos);
+        }
+    }
+};
+
+void calculate_required_chunks(std::unordered_set<glm::ivec3, IVec3Hash>& current_required_chunks) {
+    
+    int camera_chunk_x = static_cast<int>(floor(cameraPos.x / CHUNK_LENGTH));
+    int camera_chunk_y = static_cast<int>(floor(cameraPos.y / CHUNK_LENGTH));
+    int camera_chunk_z = static_cast<int>(floor(cameraPos.z / CHUNK_LENGTH));
+
+    for (int i=-RENDER_DISTANCE; i <= RENDER_DISTANCE; i++) {
+        for (int j=-RENDER_DISTANCE; j <= RENDER_DISTANCE; j++) {
+            current_required_chunks.insert({camera_chunk_x - i, 0, camera_chunk_z - j});
+        }
+    }
+}

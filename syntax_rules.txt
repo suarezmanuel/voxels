@@ -1,3 +1,0 @@
-- every class or class pointer is PascalCase
-    e.g. Shader* VertexShader
-- every getter is snake_case

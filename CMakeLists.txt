@@ -3,11 +3,13 @@
 # --- 1. Basic Project Setup ---
 cmake_minimum_required(VERSION 3.10)
 project(OpenGLCube C CXX)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+find_package(TBB REQUIRED)
+
 # --- 2. Define Executable (common part) ---
-add_executable(VoxelCube main.cpp extern/glad/glad.c)
+add_executable(VoxelCube src/main.cpp extern/glad/glad.c)
 
 # --- 3. Set Up Common Include Directories ---
 target_include_directories(VoxelCube PRIVATE
@@ -25,6 +27,7 @@ if(APPLE)
     find_package(OpenGL REQUIRED)
     target_link_libraries(VoxelCube PRIVATE
         glfw3
+        TBB::tbb
         ${OPENGL_LIBRARIES}
         "-framework Cocoa"
         "-framework IOKit"
