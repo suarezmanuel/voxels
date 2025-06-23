@@ -83,10 +83,24 @@ CMakeFiles/VoxelCube.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/VoxelCube.dir/src/main.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/manuel/Desktop/voxels/src/main.cpp -o CMakeFiles/VoxelCube.dir/src/main.cpp.s
 
+CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.o: CMakeFiles/VoxelCube.dir/flags.make
+CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.o: /Users/manuel/Desktop/voxels/src/stb_impl.cpp
+CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.o: CMakeFiles/VoxelCube.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manuel/Desktop/voxels/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.o -MF CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.o.d -o CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.o -c /Users/manuel/Desktop/voxels/src/stb_impl.cpp
+
+CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/manuel/Desktop/voxels/src/stb_impl.cpp > CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.i
+
+CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/manuel/Desktop/voxels/src/stb_impl.cpp -o CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.s
+
 CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o: CMakeFiles/VoxelCube.dir/flags.make
 CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o: /Users/manuel/Desktop/voxels/extern/glad/glad.c
 CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o: CMakeFiles/VoxelCube.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manuel/Desktop/voxels/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manuel/Desktop/voxels/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o -MF CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o.d -o CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o -c /Users/manuel/Desktop/voxels/extern/glad/glad.c
 
 CMakeFiles/VoxelCube.dir/extern/glad/glad.c.i: cmake_force
@@ -97,20 +111,38 @@ CMakeFiles/VoxelCube.dir/extern/glad/glad.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/VoxelCube.dir/extern/glad/glad.c.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/manuel/Desktop/voxels/extern/glad/glad.c -o CMakeFiles/VoxelCube.dir/extern/glad/glad.c.s
 
+CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.o: CMakeFiles/VoxelCube.dir/flags.make
+CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.o: /Users/manuel/Desktop/voxels/extern/perlin/perlin.cpp
+CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.o: CMakeFiles/VoxelCube.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/manuel/Desktop/voxels/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.o -MF CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.o.d -o CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.o -c /Users/manuel/Desktop/voxels/extern/perlin/perlin.cpp
+
+CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/manuel/Desktop/voxels/extern/perlin/perlin.cpp > CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.i
+
+CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/manuel/Desktop/voxels/extern/perlin/perlin.cpp -o CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.s
+
 # Object files for target VoxelCube
 VoxelCube_OBJECTS = \
 "CMakeFiles/VoxelCube.dir/src/main.cpp.o" \
-"CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o"
+"CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.o" \
+"CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o" \
+"CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.o"
 
 # External object files for target VoxelCube
 VoxelCube_EXTERNAL_OBJECTS =
 
 VoxelCube.app/Contents/MacOS/VoxelCube: CMakeFiles/VoxelCube.dir/src/main.cpp.o
+VoxelCube.app/Contents/MacOS/VoxelCube: CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.o
 VoxelCube.app/Contents/MacOS/VoxelCube: CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o
+VoxelCube.app/Contents/MacOS/VoxelCube: CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.o
 VoxelCube.app/Contents/MacOS/VoxelCube: CMakeFiles/VoxelCube.dir/build.make
 VoxelCube.app/Contents/MacOS/VoxelCube: /opt/homebrew/lib/libtbb.12.15.dylib
 VoxelCube.app/Contents/MacOS/VoxelCube: CMakeFiles/VoxelCube.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/manuel/Desktop/voxels/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable VoxelCube.app/Contents/MacOS/VoxelCube"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/manuel/Desktop/voxels/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable VoxelCube.app/Contents/MacOS/VoxelCube"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/VoxelCube.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copying shaders to app bundle."
 	/opt/homebrew/Cellar/cmake/3.29.2/bin/cmake -E copy_directory /Users/manuel/Desktop/voxels/shaders /Users/manuel/Desktop/voxels/build/VoxelCube.app/Contents/MacOS/../Resources/shaders

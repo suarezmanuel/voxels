@@ -9,13 +9,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(TBB REQUIRED)
 
 # --- 2. Define Executable (common part) ---
-add_executable(VoxelCube src/main.cpp extern/glad/glad.c)
+add_executable(VoxelCube src/main.cpp src/stb_impl.cpp extern/glad/glad.c extern/perlin/perlin.cpp)
 
 # --- 3. Set Up Common Include Directories ---
 target_include_directories(VoxelCube PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/extern
     ${CMAKE_CURRENT_SOURCE_DIR}/extern/glm
     ${CMAKE_CURRENT_SOURCE_DIR}/extern/stb_image
+    ${CMAKE_CURRENT_SOURCE_DIR}/extern/stb_image_write
+    ${CMAKE_CURRENT_SOURCE_DIR}/extern/perlin
 )
 
 # --- 4. Platform-Specific Configuration ---

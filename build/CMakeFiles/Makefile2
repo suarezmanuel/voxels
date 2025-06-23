@@ -81,12 +81,12 @@ clean: CMakeFiles/VoxelCube.dir/clean
 CMakeFiles/VoxelCube.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/manuel/Desktop/voxels/build/CMakeFiles --progress-num=1,2,3 "Built target VoxelCube"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/manuel/Desktop/voxels/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target VoxelCube"
 .PHONY : CMakeFiles/VoxelCube.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/VoxelCube.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/manuel/Desktop/voxels/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/manuel/Desktop/voxels/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/VoxelCube.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/manuel/Desktop/voxels/build/CMakeFiles 0
 .PHONY : CMakeFiles/VoxelCube.dir/rule

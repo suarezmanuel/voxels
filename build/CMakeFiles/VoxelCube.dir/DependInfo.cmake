@@ -9,7 +9,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/manuel/Desktop/voxels/extern/glad/glad.c" "CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o" "gcc" "CMakeFiles/VoxelCube.dir/extern/glad/glad.c.o.d"
+  "/Users/manuel/Desktop/voxels/extern/perlin/perlin.cpp" "CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.o" "gcc" "CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.o.d"
   "/Users/manuel/Desktop/voxels/src/main.cpp" "CMakeFiles/VoxelCube.dir/src/main.cpp.o" "gcc" "CMakeFiles/VoxelCube.dir/src/main.cpp.o.d"
+  "/Users/manuel/Desktop/voxels/src/stb_impl.cpp" "CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.o" "gcc" "CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

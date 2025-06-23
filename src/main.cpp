@@ -1,5 +1,8 @@
 // #include "../headers/helpers.h"
 // #include "../headers/shader.h"
+// #define STB_IMAGE_IMPLEMENTATION
+// #define STB_IMAGE_WRITE_IMPLEMENTATION
+
 #include "../headers/program.h"
 #include "../headers/camera.h"
 #include "../headers/generation.h"
@@ -79,7 +82,6 @@ int main() {
 
         camera::updateCamera();
 
-        glm::mat4 model = glm::mat4(1.0f);
         glm::mat4 view = glm::mat4(1.0f);
         glm::mat4 projection = glm::mat4(1.0f);
 
@@ -92,7 +94,7 @@ int main() {
         glUniform3fv(glGetUniformLocation(ShaderProgram->get_id(), "light_position"), 1, glm::value_ptr(light_position));
 
         std::unordered_set<glm::ivec3, IVec3Hash> current_required_chunks;
-        calculate_required_chunks(current_required_chunks);
+        generator_helper::calculate_required_chunks(current_required_chunks);
 
         gen->start_generation_tasks(current_required_chunks);
         gen->prune_unnecessary_chunks();

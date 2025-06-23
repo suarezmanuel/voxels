@@ -153,6 +153,30 @@ extern/glad/glad.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/extern/glad/glad.c.s
 .PHONY : extern/glad/glad.c.s
 
+extern/perlin/perlin.o: extern/perlin/perlin.cpp.o
+.PHONY : extern/perlin/perlin.o
+
+# target to build an object file
+extern/perlin/perlin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.o
+.PHONY : extern/perlin/perlin.cpp.o
+
+extern/perlin/perlin.i: extern/perlin/perlin.cpp.i
+.PHONY : extern/perlin/perlin.i
+
+# target to preprocess a source file
+extern/perlin/perlin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.i
+.PHONY : extern/perlin/perlin.cpp.i
+
+extern/perlin/perlin.s: extern/perlin/perlin.cpp.s
+.PHONY : extern/perlin/perlin.s
+
+# target to generate assembly for a file
+extern/perlin/perlin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.s
+.PHONY : extern/perlin/perlin.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -177,6 +201,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/stb_impl.o: src/stb_impl.cpp.o
+.PHONY : src/stb_impl.o
+
+# target to build an object file
+src/stb_impl.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.o
+.PHONY : src/stb_impl.cpp.o
+
+src/stb_impl.i: src/stb_impl.cpp.i
+.PHONY : src/stb_impl.i
+
+# target to preprocess a source file
+src/stb_impl.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.i
+.PHONY : src/stb_impl.cpp.i
+
+src/stb_impl.s: src/stb_impl.cpp.s
+.PHONY : src/stb_impl.s
+
+# target to generate assembly for a file
+src/stb_impl.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/VoxelCube.dir/build.make CMakeFiles/VoxelCube.dir/src/stb_impl.cpp.s
+.PHONY : src/stb_impl.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -189,9 +237,15 @@ help:
 	@echo "... extern/glad/glad.o"
 	@echo "... extern/glad/glad.i"
 	@echo "... extern/glad/glad.s"
+	@echo "... extern/perlin/perlin.o"
+	@echo "... extern/perlin/perlin.i"
+	@echo "... extern/perlin/perlin.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/stb_impl.o"
+	@echo "... src/stb_impl.i"
+	@echo "... src/stb_impl.s"
 .PHONY : help
 
 

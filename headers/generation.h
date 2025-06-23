@@ -1,12 +1,8 @@
 #pragma once
 #include "helpers.h"
-#include <unordered_map>
-#include <unordered_set>
 #include <vector>
 #include <tbb/concurrent_queue.h>
 #include <tbb/task_group.h>
-#define CHUNK_LENGTH 16
-#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
 class generator {
@@ -69,7 +65,7 @@ public:
 
     void process_finished_mesh () {
 
-        const auto budget = std::chrono::milliseconds(5);
+        const auto budget = std::chrono::milliseconds(20);
         auto start_time = std::chrono::high_resolution_clock::now();
 
         chunkData mesh;
@@ -167,11 +163,7 @@ private:
     }
 
     void calculate_mesh (chunkData& chunk) {
-        for (int i=0; i < CHUNK_LENGTH; i++) {
-            for (int j=0; j < CHUNK_LENGTH; j++) {
-                generator_helper::createBlock(chunk.pos.x + i,0, chunk.pos.y + j, 1, 25+i%32, 20+j%64, chunk.vertices, chunk.normals, chunk.textures);
-            }
-        }
+        generator_helper::calculate_mesh(chunk);
     }
 
     void generate_chunk (glm::ivec3 pos) {
@@ -186,16 +178,3 @@ private:
         }
     }
 };
-
-void calculate_required_chunks(std::unordered_set<glm::ivec3, IVec3Hash>& current_required_chunks) {
-    
-    int camera_chunk_x = static_cast<int>(floor(cameraPos.x / CHUNK_LENGTH));
-    int camera_chunk_y = static_cast<int>(floor(cameraPos.y / CHUNK_LENGTH));
-    int camera_chunk_z = static_cast<int>(floor(cameraPos.z / CHUNK_LENGTH));
-
-    for (int i=-RENDER_DISTANCE; i <= RENDER_DISTANCE; i++) {
-        for (int j=-RENDER_DISTANCE; j <= RENDER_DISTANCE; j++) {
-            current_required_chunks.insert({camera_chunk_x - i, 0, camera_chunk_z - j});
-        }
-    }
-}
