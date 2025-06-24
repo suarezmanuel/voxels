@@ -1,5 +1,6 @@
 #pragma once
 #include "helpers.h"
+#include "frustrum.h"
 #include <vector>
 #include <tbb/concurrent_queue.h>
 #include <tbb/task_group.h>
@@ -94,6 +95,7 @@ public:
     void draw_all (Program* ShaderProgram, const glm::mat4& view, const glm::mat4& projection) {
         
         glUseProgram(ShaderProgram->get_id());
+        // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); 
 
         // Set uniforms that are the same for all chunks ONCE before the loop
         glUniformMatrix4fv(glGetUniformLocation(ShaderProgram->get_id(), "view"), 1, GL_FALSE, glm::value_ptr(view));
@@ -107,14 +109,28 @@ public:
         // Get the location of the model uniform ONCE before the loop for efficiency
         GLint modelLoc = glGetUniformLocation(ShaderProgram->get_id(), "model");
 
+        Frustum frustum;
+        frustum.update(projection * view);
+
+        int chunksDrawn = 0;
+
         for (const auto& pair : active_chunks) {
             const chunkData* data = pair.second.get();
             if (data->vertices.size() == 0) continue;
 
+            glm::vec3 min = glm::vec3(data->pos) * (float)CHUNK_LENGTH;
+            glm::vec3 max = min + glm::vec3(CHUNK_LENGTH, CHUNK_LENGTH, CHUNK_LENGTH);
+    
+            // if (!frustum.isBoxVisible(min, max)) {
+            //     continue; // Skip this chunk, it's not visible!
+            // }
+
+            chunksDrawn++;
+
             glm::mat4 model = glm::mat4(1.0f);
             // The key 'pos' is the chunk's grid coordinate (e.g., (1, 0, 2)).
             // We multiply by CHUNK_LENGTH to get the real world coordinate (e.g., (16, 0, 32)).
-            model = glm::translate(model, glm::vec3(data->pos) * (float)CHUNK_LENGTH);
+            model = glm::translate(model, min);
 
             // 2. Send this chunk-specific model matrix to the shader.
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -122,6 +138,8 @@ public:
             glBindVertexArray(data->vao);
             glDrawArrays(GL_TRIANGLES, 0, data->vertices.size() / 3);
         }
+
+        std::cout << "chunks drawn: " << chunksDrawn << std::endl;
     }
 
 private:

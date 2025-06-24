@@ -3,19 +3,19 @@
 
 # compile C with /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc
 # compile CXX with /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++
-C_DEFINES = 
+C_DEFINES = -DTBB_USE_DEBUG
 
 C_INCLUDES = -I/Users/manuel/Desktop/voxels/extern -I/Users/manuel/Desktop/voxels/extern/glm -I/Users/manuel/Desktop/voxels/extern/stb_image -I/Users/manuel/Desktop/voxels/extern/stb_image_write -I/Users/manuel/Desktop/voxels/extern/perlin -I/Users/manuel/Desktop/voxels/extern/glfw-3.4.bin.MACOS/include -I/Users/manuel/Desktop/voxels/extern/imgui -I/Users/manuel/Desktop/voxels/extern/imgui/backends -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks -isystem /opt/homebrew/include
 
-C_FLAGSarm64 =  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk
+C_FLAGSarm64 = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk
 
-C_FLAGS =  -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk
+C_FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk
 
-CXX_DEFINES = 
+CXX_DEFINES = -DTBB_USE_DEBUG
 
 CXX_INCLUDES = -I/Users/manuel/Desktop/voxels/extern -I/Users/manuel/Desktop/voxels/extern/glm -I/Users/manuel/Desktop/voxels/extern/stb_image -I/Users/manuel/Desktop/voxels/extern/stb_image_write -I/Users/manuel/Desktop/voxels/extern/perlin -I/Users/manuel/Desktop/voxels/extern/glfw-3.4.bin.MACOS/include -I/Users/manuel/Desktop/voxels/extern/imgui -I/Users/manuel/Desktop/voxels/extern/imgui/backends -F/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks -isystem /opt/homebrew/include
 
-CXX_FLAGSarm64 = -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk
+CXX_FLAGSarm64 = -g -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk
 
-CXX_FLAGS = -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk
+CXX_FLAGS = -g -std=gnu++20 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk
 

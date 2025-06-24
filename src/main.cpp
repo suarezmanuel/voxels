@@ -105,6 +105,8 @@ int main() {
     ImVec4 clear_color = ImVec4(0.2f, 0.3f, 0.3f, 1.0f);
     // ===============================================
 
+    glfwSwapInterval(0);
+
     while (!glfwWindowShouldClose(window)) {
 
         glfwPollEvents();

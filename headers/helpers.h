@@ -108,15 +108,15 @@ namespace generator_helper {
     float len_y = 1.0/32.0; // textures are 16x16
     float off = 0.5;
 
-    void genTopFace(float x, float y, float z, float l, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
+    void genTopFaceSexy(float x, float y, float z, float lenx, float leny, float lenz, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
         std::vector<float> v = {
             // Top Face
-            x,   y+l, z, 
-            x+l, y+l, z, 
-            x+l, y+l, z+l, 
-            x+l, y+l, z+l, 
-            x,   y+l, z+l, 
-            x,   y+l, z, 
+            x,      y+leny, z, 
+            x+lenx, y+leny, z, 
+            x+lenx, y+leny, z+lenz, 
+            x+lenx, y+leny, z+lenz, 
+            x,      y+leny, z+lenz, 
+            x,      y+leny, z, 
         };
         std::vector<float> n = {
             0.0f,  1.0f,  0.0f,
@@ -149,14 +149,14 @@ namespace generator_helper {
         textures.insert(textures.end(), t.begin(), t.end());
     }
 
-    void genBotFace(float x, float y, float z, float l, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
+    void genBotFaceSexy(float x, float y, float z, float lenx, float leny, float lenz, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
         std::vector<float> v = {
             // Bottom Face
             x,   y, z, 
-            x+l, y, z, 
-            x+l, y, z+l, 
-            x+l, y, z+l, 
-            x,   y, z+l, 
+            x+lenx, y, z, 
+            x+lenx, y, z+lenz, 
+            x+lenx, y, z+lenz, 
+            x,   y, z+lenz, 
             x,   y, z, 
         };
 
@@ -190,15 +190,15 @@ namespace generator_helper {
         textures.insert(textures.end(), t.begin(), t.end());
     }
 
-    void genLeftFace(float x, float y, float z, float l, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
+    void genLeftFaceSexy(float x, float y, float z, float lenx, float leny, float lenz, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
         std::vector<float> v = {
             // Left Face
-            x,  y+l, z+l, 
-            x,  y+l, z, 
+            x,  y+leny, z+lenz, 
+            x,  y+leny, z, 
             x,  y,   z, 
             x,  y,   z, 
-            x,  y,   z+l, 
-            x,  y+l, z+l, 
+            x,  y,   z+lenz, 
+            x,  y+leny, z+lenz, 
         };
 
         std::vector<float> n = {
@@ -231,15 +231,15 @@ namespace generator_helper {
         textures.insert(textures.end(), t.begin(), t.end());
     }
 
-    void genRightFace(float x, float y, float z, float l, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
+    void genRightFaceSexy(float x, float y, float z, float lenx, float leny, float lenz, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
         std::vector<float> v = {
             // Right Face
-            x+l, y+l, z+l, 
-            x+l, y+l, z, 
-            x+l, y,   z, 
-            x+l, y,   z, 
-            x+l, y,   z+l, 
-            x+l, y+l, z+l, 
+            x+lenx, y+leny, z+lenz, 
+            x+lenx, y+leny, z, 
+            x+lenx, y,   z, 
+            x+lenx, y,   z, 
+            x+lenx, y,   z+lenz, 
+            x+lenx, y+leny, z+lenz, 
         };
 
         std::vector<float> n = {
@@ -271,15 +271,15 @@ namespace generator_helper {
         textures.insert(textures.end(), t.begin(), t.end());
     }
 
-    void genFrontFace(float x, float y, float z, float l, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
+    void genFrontFaceSexy(float x, float y, float z, float lenx, float leny, float lenz, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
         std::vector<float> v = {
             // Front Face
-            x,   y,   z+l,
-            x+l, y,   z+l,
-            x+l, y+l, z+l,
-            x+l, y+l, z+l,
-            x,   y+l, z+l,
-            x,   y,   z+l
+            x,   y,   z+lenz,
+            x+lenx, y,   z+lenz,
+            x+lenx, y+leny, z+lenz,
+            x+lenx, y+leny, z+lenz,
+            x,   y+leny, z+lenz,
+            x,   y,   z+lenz
         };
 
         std::vector<float> n = {
@@ -311,15 +311,15 @@ namespace generator_helper {
         textures.insert(textures.end(), t.begin(), t.end());
     }
 
-    void genBackFace(float x, float y, float z, float l, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
+    void genBackFaceSexy(float x, float y, float z, float lenx, float leny, float lenz, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
     
         std::vector<float> v = {
             // Back Face
             x,   y,   z,
-            x+l, y,   z,
-            x+l, y+l, z,
-            x+l, y+l, z,
-            x,   y+l, z,
+            x+lenx, y,   z,
+            x+lenx, y+leny, z,
+            x+lenx, y+leny, z,
+            x,   y+leny, z,
             x,   y,   z
         };
 
@@ -350,15 +350,6 @@ namespace generator_helper {
         vertices.insert(vertices.end(), v.begin(), v.end());
         normals.insert (normals.end(),  n.begin(), n.end());
         textures.insert(textures.end(), t.begin(), t.end());
-    }
-
-    void createBlock(float x, float y, float z, float l, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
-        genTopFace  (x,y,z,l,tex_row,tex_col,vertices,normals,textures);
-        genBotFace  (x,y,z,l,tex_row,tex_col,vertices,normals,textures);
-        genLeftFace (x,y,z,l,tex_row,tex_col,vertices,normals,textures);
-        genRightFace(x,y,z,l,tex_row,tex_col,vertices,normals,textures);
-        genFrontFace(x,y,z,l,tex_row,tex_col,vertices,normals,textures);
-        genBackFace (x,y,z,l,tex_row,tex_col,vertices,normals,textures);
     }
 
     void calculate_required_chunks(std::unordered_set<glm::ivec3, IVec3Hash>& current_required_chunks) {
@@ -414,22 +405,455 @@ namespace generator_helper {
         int tex_row = 13-1;
         int tex_col = 15-1;
 
+        // for (int z=1; z <= CHUNK_LENGTH; z++) {
+        //     for (int y=1; y <= CHUNK_LENGTH; y++) {
+        //         for (int x=1; x <= CHUNK_LENGTH; x++) {
+        //             if (!is_filled(x,y,z)) continue;
+                    // if (!is_filled(x+1,y,z)) 
+                    //     genRightFace (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                    // if (!is_filled(x-1,y,z))
+                    //     genLeftFace  (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                    // // if (!is_filled(x,y+1,z))
+                    //     genTopFace   (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                    // if (!is_filled(x,y-1,z))
+                    //     genBotFace   (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                    // if (!is_filled(x,y,z+1))
+                    //     genFrontFace (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                    // if (!is_filled(x,y,z-1))
+                    //     genBackFace  (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+        //         }
+        //     }
+        // }
+
+
+        for (int y=1; y <= CHUNK_LENGTH; y++) {
+
+            std::vector<bool> top_faces_occ (CHUNK_LENGTH * CHUNK_LENGTH, false);
+            std::vector<bool> top_faces_filled (CHUNK_LENGTH * CHUNK_LENGTH, false);
+
+            auto is_top_filled = [&top_faces_filled](int x, int z) {
+                return top_faces_filled[(x-1) * CHUNK_LENGTH + (z-1)] == true;
+            };
+
+            auto set_top_filled = [&top_faces_filled](int x, int z) {
+                top_faces_filled[(x-1) * CHUNK_LENGTH + (z-1)] = true;
+            };
+
+            auto set_top_occ = [&top_faces_occ](int x, int z) {
+                top_faces_occ[(x-1) * CHUNK_LENGTH + (z-1)] = true;
+            };
+
+            auto is_top_occ = [&top_faces_occ](int x, int z) {
+                return top_faces_occ[(x-1) * CHUNK_LENGTH + (z-1)] == true;
+            };
+
+            for (int z=1; z <= CHUNK_LENGTH; z++) {
+                for (int x=1; x <= CHUNK_LENGTH; x++) {
+                    if (is_filled(x, y, z))
+                        set_top_filled(x,z);
+                }
+            }
+
+            for (int z=1; z <= CHUNK_LENGTH; z++) {
+                for (int x=1; x <= CHUNK_LENGTH; x++) {
+                    // if above filled or you not filled
+                    if (is_filled(x,y+1,z) || !is_filled(x,y,z) || is_top_occ(x,z)) continue;
+
+                    int length_x = 1;
+                    int length_z = 1;
+                    bool stretch;
+                    bool skip;
+                    do {
+                        stretch = false;  
+                        if (x+length_x < CHUNK_LENGTH && z+length_z-1 < CHUNK_LENGTH) {
+                            skip = false;
+                            for (int i = 0; i < length_z; i++) {
+                                if (is_filled(x+length_x,y+1,z+i) || !is_top_filled(x+length_x,z+i) || is_top_occ(x+length_x,z+i))
+                                    skip = true;
+                            }
+                            if (!skip) {
+                                stretch = true;
+                                for (int i = 0; i < length_z; i++)
+                                    set_top_occ(x+length_x,z+i);    
+                                length_x++;
+                            }
+                        }
+                        if (x+length_x-1 < CHUNK_LENGTH && z+length_z < CHUNK_LENGTH) {
+                            skip = false;
+                            for (int i = 0; i < length_x; i++) {
+                                if (is_filled(x+i,y+1,z+length_z) || !is_top_filled(x+i,z+length_z) || is_top_occ(x+i,z+length_z))
+                                    skip = true;
+                            }
+                            if (!skip) {
+                                stretch = true;
+                                for (int i = 0; i < length_x; i++)
+                                    set_top_occ(x+i,z+length_z);
+                                length_z++;
+                            }
+                        }
+                    } while (stretch);
+
+                    genTopFaceSexy (x-1,y-1,z-1,length_x, 1, length_z,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                }
+            }
+        }
+
+        for (int y=1; y <= CHUNK_LENGTH; y++) {
+
+            std::vector<bool> bot_faces_occ (CHUNK_LENGTH * CHUNK_LENGTH, false);
+            std::vector<bool> bot_faces_filled (CHUNK_LENGTH * CHUNK_LENGTH, false);
+
+            auto is_bot_filled = [&bot_faces_filled](int x, int z) {
+                return bot_faces_filled[(x-1) * CHUNK_LENGTH + (z-1)] == true;
+            };
+
+            auto set_bot_filled = [&bot_faces_filled](int x, int z) {
+                bot_faces_filled[(x-1) * CHUNK_LENGTH + (z-1)] = true;
+            };
+
+            auto set_bot_occ = [&bot_faces_occ](int x, int z) {
+                bot_faces_occ[(x-1) * CHUNK_LENGTH + (z-1)] = true;
+            };
+
+            auto is_bot_occ = [&bot_faces_occ](int x, int z) {
+                return bot_faces_occ[(x-1) * CHUNK_LENGTH + (z-1)] == true;
+            };
+
+            for (int z=1; z <= CHUNK_LENGTH; z++) {
+                for (int x=1; x <= CHUNK_LENGTH; x++) {
+                    if (is_filled(x, y, z))
+                        set_bot_filled(x,z);
+                }
+            }
+
+            for (int z=1; z <= CHUNK_LENGTH; z++) {
+                for (int x=1; x <= CHUNK_LENGTH; x++) {
+                    // if above filled or you not filled
+                    if (is_filled(x,y-1,z) || !is_filled(x,y,z) || is_bot_occ(x,z)) continue;
+
+                    int length_x = 1;
+                    int length_z = 1;
+                    bool stretch;
+                    bool skip;
+                    do {
+                        stretch = false;  
+                        if (x+length_x < CHUNK_LENGTH && z+length_z-1 < CHUNK_LENGTH) {
+                            skip = false;
+                            for (int i = 0; i < length_z; i++) {
+                                if (is_filled(x+length_x,y-1,z+i) || !is_bot_filled(x+length_x,z+i) || is_bot_occ(x+length_x,z+i))
+                                    skip = true;
+                            }
+                            if (!skip) {
+                                stretch = true;
+                                for (int i = 0; i < length_z; i++)
+                                    set_bot_occ(x+length_x,z+i);    
+                                length_x++;
+                            }
+                        }
+                        if (x+length_x-1 < CHUNK_LENGTH && z+length_z < CHUNK_LENGTH) {
+                            skip = false;
+                            for (int i = 0; i < length_x; i++) {
+                                if (is_filled(x+i,y-1,z+length_z) || !is_bot_filled(x+i,z+length_z) || is_bot_occ(x+i,z+length_z))
+                                    skip = true;
+                            }
+                            if (!skip) {
+                                stretch = true;
+                                for (int i = 0; i < length_x; i++)
+                                    set_bot_occ(x+i,z+length_z);
+                                length_z++;
+                            }
+                        }
+                    } while (stretch);
+
+                    genBotFaceSexy (x-1,y-1,z-1,length_x, 1, length_z,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                }
+            }
+        }
+
         for (int z=1; z <= CHUNK_LENGTH; z++) {
+
+            std::vector<bool> bot_faces_occ (CHUNK_LENGTH * CHUNK_LENGTH, false);
+            std::vector<bool> bot_faces_filled (CHUNK_LENGTH * CHUNK_LENGTH, false);
+
+            auto is_bot_filled = [&bot_faces_filled](int x, int y) {
+                return bot_faces_filled[(y-1) * CHUNK_LENGTH + (x-1)] == true;
+            };
+
+            auto set_bot_filled = [&bot_faces_filled](int x, int y) {
+                bot_faces_filled[(y-1) * CHUNK_LENGTH + (x-1)] = true;
+            };
+
+            auto set_bot_occ = [&bot_faces_occ](int x, int y) {
+                bot_faces_occ[(y-1) * CHUNK_LENGTH + (x-1)] = true;
+            };
+
+            auto is_bot_occ = [&bot_faces_occ](int x, int y) {
+                return bot_faces_occ[(y-1) * CHUNK_LENGTH + (x-1)] == true;
+            };
+
             for (int y=1; y <= CHUNK_LENGTH; y++) {
                 for (int x=1; x <= CHUNK_LENGTH; x++) {
-                    if (!is_filled(x,y,z)) continue;
-                    if (!is_filled(x+1,y,z)) 
-                        genRightFace (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
-                    if (!is_filled(x-1,y,z))
-                        genLeftFace (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
-                    if (!is_filled(x,y+1,z))
-                        genTopFace (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
-                    if (!is_filled(x,y-1,z))
-                        genBotFace (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
-                    if (!is_filled(x,y,z+1))
-                        genFrontFace (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
-                    if (!is_filled(x,y,z-1))
-                        genBackFace (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                    if (is_filled(x, y, z))
+                        set_bot_filled(x,y);
+                }
+            }
+
+            for (int y=1; y <= CHUNK_LENGTH; y++) {
+                for (int x=1; x <= CHUNK_LENGTH; x++) {
+                    // if above filled or you not filled
+                    if (is_filled(x,y,z+1) || !is_filled(x,y,z) || is_bot_occ(x,y)) continue;
+
+                    int length_x = 1;
+                    int length_y = 1;
+                    bool stretch;
+                    bool skip;
+                    do {
+                        stretch = false;  
+                        if (x+length_x < CHUNK_LENGTH && y+length_y-1 < CHUNK_LENGTH) {
+                            skip = false;
+                            for (int i = 0; i < length_y; i++) {
+                                if (is_filled(x+length_x,y+i,z+1) || !is_bot_filled(x+length_x,y+i) || is_bot_occ(x+length_x,y+i))
+                                    skip = true;
+                            }
+                            if (!skip) {
+                                stretch = true;
+                                for (int i = 0; i < length_y; i++)
+                                    set_bot_occ(x+length_x,y+i);    
+                                length_x++;
+                            }
+                        }
+                        if (x+length_x-1 < CHUNK_LENGTH && y+length_y < CHUNK_LENGTH) {
+                            skip = false;
+                            for (int i = 0; i < length_x; i++) {
+                                if (is_filled(x+i,y+length_y,z+1) || !is_bot_filled(x+i,y+length_y) || is_bot_occ(x+i,y+length_y))
+                                    skip = true;
+                            }
+                            if (!skip) {
+                                stretch = true;
+                                for (int i = 0; i < length_x; i++)
+                                    set_bot_occ(x+i,y+length_y);
+                                length_y++;
+                            }
+                        }
+                    } while (stretch);
+
+                    genFrontFaceSexy (x-1,y-1,z-1,length_x, length_y, 1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                }
+            }
+        }
+
+        for (int z=1; z <= CHUNK_LENGTH; z++) {
+
+            std::vector<bool> bot_faces_occ (CHUNK_LENGTH * CHUNK_LENGTH, false);
+            std::vector<bool> bot_faces_filled (CHUNK_LENGTH * CHUNK_LENGTH, false);
+
+            auto is_bot_filled = [&bot_faces_filled](int x, int y) {
+                return bot_faces_filled[(y-1) * CHUNK_LENGTH + (x-1)] == true;
+            };
+
+            auto set_bot_filled = [&bot_faces_filled](int x, int y) {
+                bot_faces_filled[(y-1) * CHUNK_LENGTH + (x-1)] = true;
+            };
+
+            auto set_bot_occ = [&bot_faces_occ](int x, int y) {
+                bot_faces_occ[(y-1) * CHUNK_LENGTH + (x-1)] = true;
+            };
+
+            auto is_bot_occ = [&bot_faces_occ](int x, int y) {
+                return bot_faces_occ[(y-1) * CHUNK_LENGTH + (x-1)] == true;
+            };
+
+            for (int y=1; y <= CHUNK_LENGTH; y++) {
+                for (int x=1; x <= CHUNK_LENGTH; x++) {
+                    if (is_filled(x, y, z))
+                        set_bot_filled(x,y);
+                }
+            }
+
+            for (int y=1; y <= CHUNK_LENGTH; y++) {
+                for (int x=1; x <= CHUNK_LENGTH; x++) {
+                    // if above filled or you not filled
+                    if (is_filled(x,y,z-1) || !is_filled(x,y,z) || is_bot_occ(x,y)) continue;
+
+                    int length_x = 1;
+                    int length_y = 1;
+                    bool stretch;
+                    bool skip;
+                    do {
+                        stretch = false;  
+                        if (x+length_x < CHUNK_LENGTH && y+length_y-1 < CHUNK_LENGTH) {
+                            skip = false;
+                            for (int i = 0; i < length_y; i++) {
+                                if (is_filled(x+length_x,y+i,z-1) || !is_bot_filled(x+length_x,y+i) || is_bot_occ(x+length_x,y+i))
+                                    skip = true;
+                            }
+                            if (!skip) {
+                                stretch = true;
+                                for (int i = 0; i < length_y; i++)
+                                    set_bot_occ(x+length_x,y+i);    
+                                length_x++;
+                            }
+                        }
+                        if (x+length_x-1 < CHUNK_LENGTH && y+length_y < CHUNK_LENGTH) {
+                            skip = false;
+                            for (int i = 0; i < length_x; i++) {
+                                if (is_filled(x+i,y+length_y,z-1) || !is_bot_filled(x+i,y+length_y) || is_bot_occ(x+i,y+length_y))
+                                    skip = true;
+                            }
+                            if (!skip) {
+                                stretch = true;
+                                for (int i = 0; i < length_x; i++)
+                                    set_bot_occ(x+i,y+length_y);
+                                length_y++;
+                            }
+                        }
+                    } while (stretch);
+
+                    genBackFaceSexy (x-1,y-1,z-1,length_x, length_y, 1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                }
+            }
+        }
+    
+        for (int x=1; x <= CHUNK_LENGTH; x++) {
+
+            std::vector<bool> top_faces_occ (CHUNK_LENGTH * CHUNK_LENGTH, false);
+            std::vector<bool> top_faces_filled (CHUNK_LENGTH * CHUNK_LENGTH, false);
+
+            auto is_top_filled = [&top_faces_filled](int y, int z) {
+                return top_faces_filled[(y-1) * CHUNK_LENGTH + (z-1)] == true;
+            };
+
+            auto set_top_filled = [&top_faces_filled](int y, int z) {
+                top_faces_filled[(y-1) * CHUNK_LENGTH + (z-1)] = true;
+            };
+
+            auto set_top_occ = [&top_faces_occ](int y, int z) {
+                top_faces_occ[(y-1) * CHUNK_LENGTH + (z-1)] = true;
+            };
+
+            auto is_top_occ = [&top_faces_occ](int y, int z) {
+                return top_faces_occ[(y-1) * CHUNK_LENGTH + (z-1)] == true;
+            };
+
+            for (int y=1; y <= CHUNK_LENGTH; y++) {
+                for (int z=1; z <= CHUNK_LENGTH; z++) {
+                    if (is_filled(x, y, z))
+                        set_top_filled(y,z);
+                }
+            }
+
+            for (int y=1; y <= CHUNK_LENGTH; y++) {
+                for (int z=1; z <= CHUNK_LENGTH; z++) {
+                    // if above filled or you not filled
+                    if (is_filled(x+1,y,z) || !is_filled(x,y,z) || is_top_occ(y,z)) continue;
+
+                    int length_y = 1;
+                    int length_z = 1;
+                    bool stretch;
+                    bool skip;
+                    do {
+                        stretch = false;  
+                        if (y+length_y < CHUNK_LENGTH && z+length_z-1 < CHUNK_LENGTH) {
+                            skip = false;
+                            for (int i = 0; i < length_z; i++) {
+                                if (is_filled(x+1,y+length_y,z+i) || !is_top_filled(y+length_y,z+i) || is_top_occ(y+length_y,z+i))
+                                    skip = true;
+                            }
+                            if (!skip) {
+                                stretch = true;
+                                for (int i = 0; i < length_z; i++)
+                                    set_top_occ(y+length_y,z+i);    
+                                length_y++;
+                            }
+                        }
+                        if (y+length_y-1 < CHUNK_LENGTH && z+length_z < CHUNK_LENGTH) {
+                            skip = false;
+                            for (int i = 0; i < length_y; i++) {
+                                if (is_filled(x+1,y+i,z+length_z) || !is_top_filled(y+i,z+length_z) || is_top_occ(y+i,z+length_z))
+                                    skip = true;
+                            }
+                            if (!skip) {
+                                stretch = true;
+                                for (int i = 0; i < length_y; i++)
+                                    set_top_occ(y+i,z+length_z);
+                                length_z++;
+                            }
+                        }
+                    } while (stretch);
+
+                    genRightFaceSexy (x-1,y-1,z-1,1,length_y,length_z,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                }
+            }
+        }
+
+        for (int x=1; x <= CHUNK_LENGTH; x++) {
+
+            std::vector<bool> top_faces_occ (CHUNK_LENGTH * CHUNK_LENGTH, false);
+            std::vector<bool> top_faces_filled (CHUNK_LENGTH * CHUNK_LENGTH, false);
+
+            auto is_top_filled = [&top_faces_filled](int y, int z) {
+                return top_faces_filled[(y-1) * CHUNK_LENGTH + (z-1)] == true;
+            };
+
+            auto set_top_filled = [&top_faces_filled](int y, int z) {
+                top_faces_filled[(y-1) * CHUNK_LENGTH + (z-1)] = true;
+            };
+
+            auto set_top_occ = [&top_faces_occ](int y, int z) {
+                top_faces_occ[(y-1) * CHUNK_LENGTH + (z-1)] = true;
+            };
+
+            auto is_top_occ = [&top_faces_occ](int y, int z) {
+                return top_faces_occ[(y-1) * CHUNK_LENGTH + (z-1)] == true;
+            };
+
+            for (int y=1; y <= CHUNK_LENGTH; y++) {
+                for (int z=1; z <= CHUNK_LENGTH; z++) {
+                    if (is_filled(x, y, z))
+                        set_top_filled(y,z);
+                }
+            }
+
+            for (int y=1; y <= CHUNK_LENGTH; y++) {
+                for (int z=1; z <= CHUNK_LENGTH; z++) {
+                    // if above filled or you not filled
+                    if (is_filled(x-1,y,z) || !is_filled(x,y,z) || is_top_occ(y,z)) continue;
+
+                    int length_y = 1;
+                    int length_z = 1;
+                    bool stretch;
+                    bool skip;
+                    do {
+                        stretch = false;  
+                        if (y+length_y < CHUNK_LENGTH && z+length_z-1 < CHUNK_LENGTH) {
+                            skip = false;
+                            for (int i = 0; i < length_z; i++) {
+                                if (is_filled(x-1,y+length_y,z+i) || !is_top_filled(y+length_y,z+i) || is_top_occ(y+length_y,z+i))
+                                    skip = true;
+                            }
+                            if (!skip) {
+                                stretch = true;
+                                for (int i = 0; i < length_z; i++)
+                                    set_top_occ(y+length_y,z+i);    
+                                length_y++;
+                            }
+                        }
+                        if (y+length_y-1 < CHUNK_LENGTH && z+length_z < CHUNK_LENGTH) {
+                            skip = false;
+                            for (int i = 0; i < length_y; i++) {
+                                if (is_filled(x-1,y+i,z+length_z) || !is_top_filled(y+i,z+length_z) || is_top_occ(y+i,z+length_z))
+                                    skip = true;
+                            }
+                            if (!skip) {
+                                stretch = true;
+                                for (int i = 0; i < length_y; i++)
+                                    set_top_occ(y+i,z+length_z);
+                                length_z++;
+                            }
+                        }
+                    } while (stretch);
+
+                    genLeftFaceSexy (x-1,y-1,z-1,1,length_y,length_z,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
                 }
             }
         }

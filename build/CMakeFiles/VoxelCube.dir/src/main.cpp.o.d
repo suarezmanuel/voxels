@@ -1199,6 +1199,7 @@ CMakeFiles/VoxelCube.dir/src/main.cpp.o: \
   /Users/manuel/Desktop/voxels/extern/stb_image_write/stb_image_write.h \
   /Users/manuel/Desktop/voxels/src/../headers/shader.h \
   /Users/manuel/Desktop/voxels/src/../headers/generation.h \
+  /Users/manuel/Desktop/voxels/src/../headers/frustrum.h \
   /opt/homebrew/include/tbb/concurrent_queue.h \
   /opt/homebrew/include/tbb/../oneapi/tbb/concurrent_queue.h \
   /opt/homebrew/include/tbb/../oneapi/tbb/detail/_namespace_injection.h \
