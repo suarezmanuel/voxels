@@ -55,12 +55,37 @@ int main() {
     glEnable(GL_DEPTH_TEST);
 
     Program* ShaderProgram = new Program("./shaders/vertex.glsl", "./shaders/fragment.glsl");
+    Program* CrosshairProgram = new Program("./shaders/crosshair_vertex.glsl", "./shaders/crosshair_fragment.glsl");
     generator* gen = new generator(ShaderProgram);
     camera::updateCamera();
 
     float lastFrame = glfwGetTime();
     int frame_count = 0;
     float acc_time = 0;
+
+    float crosshair_vertices [36] = {
+        1,0,0, 1,0,0,
+        0,0,0, 1,0,0,
+
+        0,1,0, 0,1,0,
+        0,0,0, 0,1,0,
+
+        0,0,1, 0,0,1,
+        0,0,0, 0,0,1
+    };
+
+    glUseProgram(CrosshairProgram->get_id());
+    unsigned int CVAO, CVBO;
+    glGenVertexArrays(1, &CVAO);
+    glGenBuffers(1, &CVBO);
+    glBindVertexArray(CVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, CVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(crosshair_vertices), crosshair_vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3*sizeof(float)));
+    glEnableVertexAttribArray(1);
+    glBindVertexArray(0);
 
     while (!glfwWindowShouldClose(window)) {
 
@@ -91,6 +116,7 @@ int main() {
     
         glm::vec3 light_position = cameraPos;
 
+        glUseProgram(ShaderProgram->get_id());
         glUniform3fv(glGetUniformLocation(ShaderProgram->get_id(), "light_position"), 1, glm::value_ptr(light_position));
 
         std::unordered_set<glm::ivec3, IVec3Hash> current_required_chunks;
@@ -100,6 +126,20 @@ int main() {
         gen->prune_unnecessary_chunks();
         gen->process_finished_mesh();
         gen->draw_all(ShaderProgram, view, projection);
+
+
+        glUseProgram(CrosshairProgram->get_id());
+        glm::mat4 gizmoModel = glm::mat4(1.0f);
+        glm::vec3 gizmoPos = cameraPos + front * 3.0f; 
+        gizmoModel = glm::translate(gizmoModel, gizmoPos);
+
+        glUniformMatrix4fv(glGetUniformLocation(CrosshairProgram->get_id(), "model"), 1, GL_FALSE, glm::value_ptr(gizmoModel));
+        glUniformMatrix4fv(glGetUniformLocation(CrosshairProgram->get_id(), "view"), 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(glGetUniformLocation(CrosshairProgram->get_id(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+        glLineWidth(3.0f);
+        glBindVertexArray(CVAO);
+        glDrawArrays(GL_LINES, 0, 6);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

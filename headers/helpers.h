@@ -107,7 +107,7 @@ namespace generator_helper {
     float len = 1.0/16.0; // textures are 16x16
     float off = 0.5;
 
-    void genTopFace(float x, float y, float z, float l, int row, int col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
+    void genTopFace(float x, float y, float z, float l, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
         std::vector<float> v = {
             // Top Face
             x,   y+l, z, 
@@ -126,21 +126,29 @@ namespace generator_helper {
             0.0f,  1.0f,  0.0f
         };
 
+        float u0 = tex_col * len; // Left edge (u)
+        float v0 = tex_row * len; // Bottom edge (v)
+        float u1 = u0 + len;      // Right edge (u)
+        float v1 = v0 + len;      // Top edge (v)
+
         std::vector<float> t = {
-            col*len, row*len,
-            (col+off/2)*len, (row)*len,
-            (col+off/2)*len, (row+off)*len,
-            (col+off/2)*len, (row+off)*len,
-            (col+0.0f)*len, (row+off)*len,
-            (col)*len, (row)*len,
+            // Tri 1
+            u1, v0, // Corresponds to vertex 1 (bottom-left)
+            u0, v0, // Corresponds to vertex 2 (bottom-right)
+            u0, v1, // Corresponds to vertex 3 (top-right)
+            // Tri 2
+            u0, v1, // Corresponds to vertex 4 (top-right)
+            u1, v1, // Corresponds to vertex 5 (top-left)
+            u1, v0, // Corresponds to vertex 6 (bottom-left)
         };
+
 
         vertices.insert(vertices.end(), v.begin(), v.end());
         normals.insert (normals.end(),  n.begin(), n.end());
         textures.insert(textures.end(), t.begin(), t.end());
     }
 
-    void genBotFace(float x, float y, float z, float l, int row, int col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
+    void genBotFace(float x, float y, float z, float l, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
         std::vector<float> v = {
             // Bottom Face
             x,   y, z, 
@@ -160,21 +168,28 @@ namespace generator_helper {
             0.0f, -1.0f,  0.0f,
         };
 
+        float u0 = tex_col * len; // Left edge (u)
+        float v0 = tex_row * len; // Bottom edge (v)
+        float u1 = u0 + len;      // Right edge (u)
+        float v1 = v0 + len;      // Top edge (v)
+
         std::vector<float> t = {
-            col*len, row*len,
-            (col+off/2)*len, (row)*len,
-            (col+off/2)*len, (row+off)*len,
-            (col+off/2)*len, (row+off)*len,
-            (col+0.0f)*len, (row+off)*len,
-            (col)*len, (row)*len,
+            // Tri 1
+            u0, v0, // Corresponds to vertex 1 (bottom-left)
+            u1, v0, // Corresponds to vertex 2 (bottom-right)
+            u1, v1, // Corresponds to vertex 3 (top-right)
+            // Tri 2
+            u1, v1, // Corresponds to vertex 4 (top-right)
+            u0, v1, // Corresponds to vertex 5 (top-left)
+            u0, v0, // Corresponds to vertex 6 (bottom-left)
         };
-        
+
         vertices.insert(vertices.end(), v.begin(), v.end());
         normals.insert (normals.end(),  n.begin(), n.end());
         textures.insert(textures.end(), t.begin(), t.end());
     }
 
-    void genLeftFace(float x, float y, float z, float l, int row, int col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
+    void genLeftFace(float x, float y, float z, float l, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
         std::vector<float> v = {
             // Left Face
             x,  y+l, z+l, 
@@ -194,21 +209,28 @@ namespace generator_helper {
            -1.0f,  0.0f,  0.0f,
         };
 
+        float u0 = tex_col * len; // Left edge (u)
+        float v0 = tex_row * len; // Bottom edge (v)
+        float u1 = u0 + len;      // Right edge (u)
+        float v1 = v0 + len;      // Top edge (v)
+
         std::vector<float> t = {
-            col*len, row*len,
-            (col+off/2)*len, (row)*len,
-            (col+off/2)*len, (row+off)*len,
-            (col+off/2)*len, (row+off)*len,
-            (col+0.0f)*len, (row+off)*len,
-            (col)*len, (row)*len,
+            // Tri 1
+            u0, v0, // Corresponds to vertex 1 (bottom-left)
+            u1, v0, // Corresponds to vertex 2 (bottom-right)
+            u1, v1, // Corresponds to vertex 3 (top-right)
+            // Tri 2
+            u1, v1, // Corresponds to vertex 4 (top-right)
+            u0, v1, // Corresponds to vertex 5 (top-left)
+            u0, v0, // Corresponds to vertex 6 (bottom-left)
         };
-        
+
         vertices.insert(vertices.end(), v.begin(), v.end());
         normals.insert (normals.end(),  n.begin(), n.end());
         textures.insert(textures.end(), t.begin(), t.end());
     }
 
-    void genRightFace(float x, float y, float z, float l, int row, int col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
+    void genRightFace(float x, float y, float z, float l, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
         std::vector<float> v = {
             // Right Face
             x+l, y+l, z+l, 
@@ -228,21 +250,27 @@ namespace generator_helper {
             1.0f,  0.0f,  0.0f,
         };
 
+        float u0 = tex_col * len; // Left edge (u)
+        float v0 = tex_row * len; // Bottom edge (v)
+        float u1 = u0 + len;      // Right edge (u)
+        float v1 = v0 + len;      // Top edge (v)
+
         std::vector<float> t = {
-            col*len, row*len,
-            (col+off/2)*len, (row)*len,
-            (col+off/2)*len, (row+off)*len,
-            (col+off/2)*len, (row+off)*len,
-            (col+0.0f)*len, (row+off)*len,
-            (col)*len, (row)*len,
+            // Tri 1
+            u0, v0, // Corresponds to vertex 1 (bottom-left)
+            u1, v0, // Corresponds to vertex 2 (bottom-right)
+            u1, v1, // Corresponds to vertex 3 (top-right)
+            // Tri 2
+            u1, v1, // Corresponds to vertex 4 (top-right)
+            u0, v1, // Corresponds to vertex 5 (top-left)
+            u0, v0, // Corresponds to vertex 6 (bottom-left)
         };
-        
         vertices.insert(vertices.end(), v.begin(), v.end());
         normals.insert (normals.end(),  n.begin(), n.end());
         textures.insert(textures.end(), t.begin(), t.end());
     }
 
-    void genFrontFace(float x, float y, float z, float l, int row, int col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
+    void genFrontFace(float x, float y, float z, float l, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
         std::vector<float> v = {
             // Front Face
             x,   y,   z+l,
@@ -262,21 +290,27 @@ namespace generator_helper {
             0.0f,  0.0f,  1.0f,
         };
 
+        float u0 = tex_col * len; // Left edge (u)
+        float v0 = tex_row * len; // Bottom edge (v)
+        float u1 = u0 + len;      // Right edge (u)
+        float v1 = v0 + len;      // Top edge (v)
+
         std::vector<float> t = {
-            col*len, row*len,
-            (col+off/2)*len, (row)*len,
-            (col+off/2)*len, (row+off)*len,
-            (col+off/2)*len, (row+off)*len,
-            (col+0.0f)*len, (row+off)*len,
-            (col)*len, (row)*len,
+            // Tri 1
+            u0, v0, // Corresponds to vertex 1 (bottom-left)
+            u1, v0, // Corresponds to vertex 2 (bottom-right)
+            u1, v1, // Corresponds to vertex 3 (top-right)
+            // Tri 2
+            u1, v1, // Corresponds to vertex 4 (top-right)
+            u0, v1, // Corresponds to vertex 5 (top-left)
+            u0, v0, // Corresponds to vertex 6 (bottom-left)
         };
-        
         vertices.insert(vertices.end(), v.begin(), v.end());
         normals.insert (normals.end(),  n.begin(), n.end());
         textures.insert(textures.end(), t.begin(), t.end());
     }
 
-    void genBackFace(float x, float y, float z, float l, int row, int col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
+    void genBackFace(float x, float y, float z, float l, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
     
         std::vector<float> v = {
             // Back Face
@@ -297,27 +331,33 @@ namespace generator_helper {
             0.0f,  0.0f, -1.0f,
         };
 
+        float u0 = tex_col * len; // Left edge (u)
+        float v0 = tex_row * len; // Bottom edge (v)
+        float u1 = u0 + len;      // Right edge (u)
+        float v1 = v0 + len;      // Top edge (v)
+
         std::vector<float> t = {
-            col*len, row*len,
-            (col+off/2)*len, (row)*len,
-            (col+off/2)*len, (row+off)*len,
-            (col+off/2)*len, (row+off)*len,
-            (col+0.0f)*len, (row+off)*len,
-            (col)*len, (row)*len,
+            // Tri 1
+            u0, v0, // Corresponds to vertex 1 (bottom-left)
+            u1, v0, // Corresponds to vertex 2 (bottom-right)
+            u1, v1, // Corresponds to vertex 3 (top-right)
+            // Tri 2
+            u1, v1, // Corresponds to vertex 4 (top-right)
+            u0, v1, // Corresponds to vertex 5 (top-left)
+            u0, v0, // Corresponds to vertex 6 (bottom-left)
         };
-        
         vertices.insert(vertices.end(), v.begin(), v.end());
         normals.insert (normals.end(),  n.begin(), n.end());
         textures.insert(textures.end(), t.begin(), t.end());
     }
 
-    void createBlock(float x, float y, float z, float l, int row, int col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
-        genTopFace  (x,y,z,l,row,col,vertices,normals,textures);
-        genBotFace  (x,y,z,l,row,col,vertices,normals,textures);
-        genLeftFace (x,y,z,l,row,col,vertices,normals,textures);
-        genRightFace(x,y,z,l,row,col,vertices,normals,textures);
-        genFrontFace(x,y,z,l,row,col,vertices,normals,textures);
-        genBackFace (x,y,z,l,row,col,vertices,normals,textures);
+    void createBlock(float x, float y, float z, float l, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
+        genTopFace  (x,y,z,l,tex_row,tex_col,vertices,normals,textures);
+        genBotFace  (x,y,z,l,tex_row,tex_col,vertices,normals,textures);
+        genLeftFace (x,y,z,l,tex_row,tex_col,vertices,normals,textures);
+        genRightFace(x,y,z,l,tex_row,tex_col,vertices,normals,textures);
+        genFrontFace(x,y,z,l,tex_row,tex_col,vertices,normals,textures);
+        genBackFace (x,y,z,l,tex_row,tex_col,vertices,normals,textures);
     }
 
     void calculate_required_chunks(std::unordered_set<glm::ivec3, IVec3Hash>& current_required_chunks) {
@@ -345,28 +385,52 @@ namespace generator_helper {
 
     void calculate_mesh (chunkData& chunk) {
 
+        int chunk_len_2 = CHUNK_LENGTH+2;
+        std::vector<bool> arr (chunk_len_2 * chunk_len_2  * chunk_len_2 , 0);
+
+        auto is_filled = [&arr, chunk_len_2](uint8_t x, uint8_t y, uint8_t z) {
+            return arr[z * chunk_len_2 * chunk_len_2 + y * chunk_len_2 + x] == 1;
+        };
+
         f32 f = 1.0f / 32.0f; // the smaller the more coarse
         uint8_t* val = (uint8_t*) malloc(4 * sizeof(uint8_t));
 
-        for (int x=0; x < CHUNK_LENGTH; x += 4) {
-            for (int y=0; y < CHUNK_LENGTH; y++) {
-                for (int z=0; z < CHUNK_LENGTH; z++) {
-                    perlinNoiseSIMD_4x((x + chunk.pos.x * CHUNK_LENGTH + 10000) * f, (y + chunk.pos.y * CHUNK_LENGTH + 10000) * f, (z + chunk.pos.z * CHUNK_LENGTH + 10000) * f, f, val);
+        for (int z=0; z < chunk_len_2; z++) {
+            for (int y=0; y < chunk_len_2; y++) {
+                for (int x=0; x < chunk_len_2; x += 4) {
+
+                    perlinNoiseSIMD_4x(((x-1) + chunk.pos.x * CHUNK_LENGTH + 10000) * f, ((y-1) + chunk.pos.y * CHUNK_LENGTH + 10000) * f, ((z-1) + chunk.pos.z * CHUNK_LENGTH + 10000) * f, f, val);
                     
                     for (int i = 0; i < 4; i++) {
-                        // std::cout << "hello: " << static_cast<int>(val[i]) << std::endl;
+                        if (x+i >= chunk_len_2) break; // were done here
                         if (val[i] >= PERLIN_THRESHOLD)
-                            generator_helper::createBlock(x+i, y, z, 1, chunk.pos.x%32, chunk.pos.z%64, chunk.vertices, chunk.normals, chunk.textures);
+                            arr[z * chunk_len_2 * chunk_len_2 + y * chunk_len_2 + x+i] = 1;
                     }
                 }
             }
         }
 
-        // for (int i=0; i < CHUNK_LENGTH; i++) {
-        //     for (int j=0; j < CHUNK_LENGTH; j++) {
-        //         // the translation is done later
-        //         generator_helper::createBlock(i, 0, j, 1, chunk.pos.x%32, chunk.pos.z%64, chunk.vertices, chunk.normals, chunk.textures);
-        //     }
-        // }
+        int tex_row = 11;
+        int tex_col = 10;
+
+        for (int z=1; z <= CHUNK_LENGTH; z++) {
+            for (int y=1; y <= CHUNK_LENGTH; y++) {
+                for (int x=1; x <= CHUNK_LENGTH; x++) {
+                    if (!is_filled(x,y,z)) continue;
+                    if (!is_filled(x+1,y,z)) 
+                        genRightFace (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                    if (!is_filled(x-1,y,z))
+                        genLeftFace (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                    if (!is_filled(x,y+1,z))
+                        genTopFace (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                    if (!is_filled(x,y-1,z))
+                        genBotFace (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                    if (!is_filled(x,y,z+1))
+                        genFrontFace (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                    if (!is_filled(x,y,z-1))
+                        genBackFace (x-1,y-1,z-1,1,tex_row,tex_col,chunk.vertices,chunk.normals,chunk.textures);
+                }
+            }
+        }
     }
 }
