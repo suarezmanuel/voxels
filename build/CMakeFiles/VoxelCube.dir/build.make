@@ -141,6 +141,7 @@ VoxelCube.app/Contents/MacOS/VoxelCube: CMakeFiles/VoxelCube.dir/extern/glad/gla
 VoxelCube.app/Contents/MacOS/VoxelCube: CMakeFiles/VoxelCube.dir/extern/perlin/perlin.cpp.o
 VoxelCube.app/Contents/MacOS/VoxelCube: CMakeFiles/VoxelCube.dir/build.make
 VoxelCube.app/Contents/MacOS/VoxelCube: /opt/homebrew/lib/libtbb.12.15.dylib
+VoxelCube.app/Contents/MacOS/VoxelCube: libImGui_Lib.a
 VoxelCube.app/Contents/MacOS/VoxelCube: CMakeFiles/VoxelCube.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/manuel/Desktop/voxels/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable VoxelCube.app/Contents/MacOS/VoxelCube"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/VoxelCube.dir/link.txt --verbose=$(VERBOSE)

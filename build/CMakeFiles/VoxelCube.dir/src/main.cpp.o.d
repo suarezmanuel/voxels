@@ -1234,4 +1234,9 @@ CMakeFiles/VoxelCube.dir/src/main.cpp.o: \
   /opt/homebrew/include/tbb/../oneapi/tbb/detail/_small_object_pool.h \
   /opt/homebrew/include/tbb/../oneapi/tbb/detail/_intrusive_list_node.h \
   /opt/homebrew/include/tbb/../oneapi/tbb/detail/_task_handle.h \
-  /Users/manuel/Desktop/voxels/extern/stb_image/stb_image.h
+  /Users/manuel/Desktop/voxels/extern/stb_image/stb_image.h \
+  /Users/manuel/Desktop/voxels/extern/imgui/imgui.h \
+  /Users/manuel/Desktop/voxels/extern/imgui/imconfig.h \
+  /Users/manuel/Desktop/voxels/extern/imgui/backends/imgui_impl_glfw.h \
+  /Users/manuel/Desktop/voxels/extern/imgui/backends/imgui_impl_opengl3.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/usr/include/TargetConditionals.h

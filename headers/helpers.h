@@ -104,7 +104,8 @@ namespace render_helper {
 
 namespace generator_helper {
 
-    float len = 1.0/16.0; // textures are 16x16
+    float len_x = 1.0/64.0; // textures are 16x16
+    float len_y = 1.0/32.0; // textures are 16x16
     float off = 0.5;
 
     void genTopFace(float x, float y, float z, float l, int tex_row, int tex_col, std::vector<float>& vertices, std::vector<float>& normals, std::vector<float>& textures) {
@@ -126,10 +127,10 @@ namespace generator_helper {
             0.0f,  1.0f,  0.0f
         };
 
-        float u0 = tex_col * len; // Left edge (u)
-        float v0 = tex_row * len; // Bottom edge (v)
-        float u1 = u0 + len;      // Right edge (u)
-        float v1 = v0 + len;      // Top edge (v)
+        float u0 = tex_col * len_x; // Left edge (u)
+        float v0 = tex_row * len_y; // Bottom edge (v)
+        float u1 = u0 + len_x;      // Right edge (u)
+        float v1 = v0 + len_y;      // Top edge (v)
 
         std::vector<float> t = {
             // Tri 1
@@ -168,10 +169,10 @@ namespace generator_helper {
             0.0f, -1.0f,  0.0f,
         };
 
-        float u0 = tex_col * len; // Left edge (u)
-        float v0 = tex_row * len; // Bottom edge (v)
-        float u1 = u0 + len;      // Right edge (u)
-        float v1 = v0 + len;      // Top edge (v)
+        float u0 = tex_col * len_x; // Left edge (u)
+        float v0 = tex_row * len_y; // Bottom edge (v)
+        float u1 = u0 + len_x;      // Right edge (u)
+        float v1 = v0 + len_y;      // Top edge (v)
 
         std::vector<float> t = {
             // Tri 1
@@ -209,20 +210,20 @@ namespace generator_helper {
            -1.0f,  0.0f,  0.0f,
         };
 
-        float u0 = tex_col * len; // Left edge (u)
-        float v0 = tex_row * len; // Bottom edge (v)
-        float u1 = u0 + len;      // Right edge (u)
-        float v1 = v0 + len;      // Top edge (v)
+        float u0 = tex_col * len_x; // Left edge (u)
+        float v0 = tex_row * len_y; // Bottom edge (v)
+        float u1 = u0 + len_x;      // Right edge (u)
+        float v1 = v0 + len_y;      // Top edge (v)
 
         std::vector<float> t = {
             // Tri 1
-            u0, v0, // Corresponds to vertex 1 (bottom-left)
-            u1, v0, // Corresponds to vertex 2 (bottom-right)
-            u1, v1, // Corresponds to vertex 3 (top-right)
+            u0, v1, // Corresponds to vertex 1 (bottom-left)
+            u1, v1, // Corresponds to vertex 2 (bottom-right)
+            u1, v0, // Corresponds to vertex 3 (top-right)
             // Tri 2
-            u1, v1, // Corresponds to vertex 4 (top-right)
-            u0, v1, // Corresponds to vertex 5 (top-left)
-            u0, v0, // Corresponds to vertex 6 (bottom-left)
+            u1, v0, // Corresponds to vertex 4 (top-right)
+            u0, v0, // Corresponds to vertex 5 (top-left)
+            u0, v1, // Corresponds to vertex 6 (bottom-left)
         };
 
         vertices.insert(vertices.end(), v.begin(), v.end());
@@ -250,20 +251,20 @@ namespace generator_helper {
             1.0f,  0.0f,  0.0f,
         };
 
-        float u0 = tex_col * len; // Left edge (u)
-        float v0 = tex_row * len; // Bottom edge (v)
-        float u1 = u0 + len;      // Right edge (u)
-        float v1 = v0 + len;      // Top edge (v)
+        float u0 = tex_col * len_x; // Left edge (u)
+        float v0 = tex_row * len_y; // Bottom edge (v)
+        float u1 = u0 + len_x;      // Right edge (u)
+        float v1 = v0 + len_y;      // Top edge (v)
 
+        // grows downwards
         std::vector<float> t = {
-            // Tri 1
-            u0, v0, // Corresponds to vertex 1 (bottom-left)
-            u1, v0, // Corresponds to vertex 2 (bottom-right)
-            u1, v1, // Corresponds to vertex 3 (top-right)
-            // Tri 2
-            u1, v1, // Corresponds to vertex 4 (top-right)
-            u0, v1, // Corresponds to vertex 5 (top-left)
-            u0, v0, // Corresponds to vertex 6 (bottom-left)
+            u0, v1, 
+            u1, v1,
+            u1, v0,
+
+            u1, v0,
+            u0, v0,
+            u0, v1,
         };
         vertices.insert(vertices.end(), v.begin(), v.end());
         normals.insert (normals.end(),  n.begin(), n.end());
@@ -290,10 +291,10 @@ namespace generator_helper {
             0.0f,  0.0f,  1.0f,
         };
 
-        float u0 = tex_col * len; // Left edge (u)
-        float v0 = tex_row * len; // Bottom edge (v)
-        float u1 = u0 + len;      // Right edge (u)
-        float v1 = v0 + len;      // Top edge (v)
+        float u0 = tex_col * len_x; // Left edge (u)
+        float v0 = tex_row * len_y; // Bottom edge (v)
+        float u1 = u0 + len_x;      // Right edge (u)
+        float v1 = v0 + len_y;      // Top edge (v)
 
         std::vector<float> t = {
             // Tri 1
@@ -331,10 +332,10 @@ namespace generator_helper {
             0.0f,  0.0f, -1.0f,
         };
 
-        float u0 = tex_col * len; // Left edge (u)
-        float v0 = tex_row * len; // Bottom edge (v)
-        float u1 = u0 + len;      // Right edge (u)
-        float v1 = v0 + len;      // Top edge (v)
+        float u0 = tex_col * len_x; // Left edge (u)
+        float v0 = tex_row * len_y; // Bottom edge (v)
+        float u1 = u0 + len_x;      // Right edge (u)
+        float v1 = v0 + len_y;      // Top edge (v)
 
         std::vector<float> t = {
             // Tri 1
@@ -410,8 +411,8 @@ namespace generator_helper {
             }
         }
 
-        int tex_row = 11;
-        int tex_col = 10;
+        int tex_row = 13-1;
+        int tex_col = 15-1;
 
         for (int z=1; z <= CHUNK_LENGTH; z++) {
             for (int y=1; y <= CHUNK_LENGTH; y++) {

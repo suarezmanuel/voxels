@@ -14,7 +14,7 @@ void main()
     // the dot make things blacker if they are on the opposite facing side
     vec3 dir_to_light = normalize(light_position-fragPos);
     float lambert = dot(faceNormal, dir_to_light);
-    float light_strength = min(1/sqrt(distance(fragPos, light_position) / 100), 1);
+    float light_strength = min(100/sqrt(distance(fragPos, light_position)), 1);
     // float lambert = 1.0;
     FragColor = vec4(texColor.rgb * lambert * light_strength, 1.0);
 }

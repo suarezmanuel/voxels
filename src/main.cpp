@@ -1,12 +1,12 @@
-// #include "../headers/helpers.h"
-// #include "../headers/shader.h"
-// #define STB_IMAGE_IMPLEMENTATION
-// #define STB_IMAGE_WRITE_IMPLEMENTATION
-
 #include "../headers/program.h"
 #include "../headers/camera.h"
 #include "../headers/generation.h"
 #include <unordered_set>
+
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+
 
 int main() {
     if (!glfwInit()) {
@@ -26,7 +26,7 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // 2. Create a Window
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "💣NeriaCraft💣", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "💣NeriaCraft™💣", NULL, NULL);
     if (window == NULL) {
         std::cerr << "ERROR: Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -50,6 +50,18 @@ int main() {
 
     std::cout << "Successfully initialized OpenGL!" << std::endl;
     std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
+
+    // === IMGUI: 2. Initialize ImGui ===
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGui::StyleColorsDark();
+
+    // Setup Platform/Renderer backends
+    const char* glsl_version = "#version 330"; // Match your OpenGL version
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init(glsl_version);
+    // ===================================
 
     // Configure global OpenGL state
     glEnable(GL_DEPTH_TEST);
@@ -87,7 +99,21 @@ int main() {
     glEnableVertexAttribArray(1);
     glBindVertexArray(0);
 
+    // === IMGUI: State for UI mode and clear color ===
+    bool ui_mode = false; // false = Game Mode, true = UI Mode
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); // Start in game mode
+    ImVec4 clear_color = ImVec4(0.2f, 0.3f, 0.3f, 1.0f);
+    // ===============================================
+
     while (!glfwWindowShouldClose(window)) {
+
+        glfwPollEvents();
+
+        // === IMGUI: 3. Start the ImGui frame ===
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+        // ========================================
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -101,6 +127,37 @@ int main() {
             std::cout << "FPS: " << frame_count << std::endl;
             acc_time = 0;
             frame_count = 0;
+        }
+
+        static bool tab_key_was_pressed = false;
+        if (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS) {
+            if (!tab_key_was_pressed) {
+                ui_mode = !ui_mode;
+                glfwSetInputMode(window, GLFW_CURSOR, ui_mode ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
+                tab_key_was_pressed = true;
+            }
+        } else {
+            tab_key_was_pressed = false;
+        }
+
+        // Only process game input and camera if NOT in UI mode
+        if (!ui_mode) {
+            render_helper::processInput(window, deltaTime, cameraPos, front, up);
+            camera::updateCamera();
+        }
+        // ============================================
+
+        // === IMGUI: 4. Build your UI ===
+        // This is where you call ImGui functions to create windows, buttons, etc.
+        ImGui::ShowDemoWindow(); // The big demo window, great for learning!
+
+        // Example of a custom window
+        {
+            ImGui::Begin("NeriaCraft Control Panel");
+            ImGui::Text("Press TAB to switch between game and UI mode.");
+            ImGui::ColorEdit3("Background Color", (float*)&clear_color);
+            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+            ImGui::End();
         }
 
         render_helper::processInput(window, deltaTime, cameraPos, front, up);
@@ -141,11 +198,18 @@ int main() {
         glBindVertexArray(CVAO);
         glDrawArrays(GL_LINES, 0, 6);
 
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
         glfwSwapBuffers(window);
         glfwPollEvents();
 
         frame_count++;
     }
+
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
 
     // glDeleteVertexArrays(1, &VAO);
     // glDeleteBuffers(1, &VBOPos);
@@ -153,6 +217,7 @@ int main() {
     glDeleteProgram(ShaderProgram->get_id());
     delete ShaderProgram;
 
+    glfwDestroyWindow(window);
     glfwTerminate();
     return 0;
 }
