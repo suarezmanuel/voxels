@@ -20,7 +20,7 @@
 
 int speed_index = 0;
 std::vector<float> speeds = {50,100,500};
-#define CHUNK_LENGTH 16
+#define CHUNK_LENGTH 32
 #define PERLIN_THRESHOLD 160
 
 struct chunkData {
