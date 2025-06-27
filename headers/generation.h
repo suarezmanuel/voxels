@@ -42,42 +42,45 @@ generator (Program* ShaderProgram) {
 }
 
 void start_generation_tasks (const std::unordered_set<glm::ivec3, IVec3Hash>& required) {
-    this->current_needed_chunks = required;
 
-    for (const auto& pos : this->current_needed_chunks) {
-        if (!active_chunks.count(pos)) { // Not active...
+    for (const auto& pos : required) {
+        if (!active_chunks.count(pos)) { 
             std::lock_guard<std::mutex> lock(m_pending_mutex);
-            // ...and not pending. The .insert(pos).second trick checks if it was newly inserted.
             if (m_pending_generation.insert(pos).second) { 
-                task_group.run([this, pos]() { generate_chunk(pos); });
+                tasks_in_flight.fetch_add(1, std::memory_order_relaxed);
+                task_group.run([this, pos, required]() { 
+                    if (!required.count(pos)) return;
+                    generate_chunk(pos);
+                    tasks_in_flight.fetch_sub(1, std::memory_order_relaxed);
+                });
             }
         }
     }
 }
 
-void prune_unnecessary_chunks () {
+void prune_unnecessary_chunks (const std::unordered_set<glm::ivec3, IVec3Hash>& required) {
     // delete all chunks in memory that are not needed
     std::erase_if(active_chunks, [&](const auto& pair) {
         const glm::ivec3& pos = pair.first;
-        return !this->current_needed_chunks.count(pos);
+        return !required.count(pos);
     });
 }
 
-void process_finished_mesh () {
+void process_finished_mesh (const std::unordered_set<glm::ivec3, IVec3Hash>& required) {
 
     const auto budget = std::chrono::milliseconds(20);
     auto start_time = std::chrono::high_resolution_clock::now();
 
     chunkData mesh;
-    // pop all data from finished_mesh_queue
-    while (finished_mesh_queue.try_pop(mesh)) {
-
-        if (!this->current_needed_chunks.count(mesh.pos)) continue;
-
+    while (true) {
         auto now = std::chrono::high_resolution_clock::now();
         if (now - start_time > budget) {
-            break; // if popping for 5 ms straight, stop. 
+            return; // if popping for 5 ms straight, stop. 
         }
+        // pop all data from finished_mesh_queue
+        if (!finished_mesh_queue.try_pop(mesh)) continue;
+
+        if (!required.count(mesh.pos)) continue;
 
         auto chunk_ptr = std::make_unique<chunkData>();
         chunk_ptr->pos = std::move(mesh.pos);
@@ -88,7 +91,16 @@ void process_finished_mesh () {
         set_vao_vbo(*chunk_ptr);
 
         active_chunks[chunk_ptr->pos] = std::move(chunk_ptr); 
+
+        {
+            std::lock_guard<std::mutex> lock(m_pending_mutex);
+            m_pending_generation.erase(mesh.pos);
+        }
     }
+}
+
+void print_task_count() {
+    std::cout << "tasks running: " << tasks_in_flight << std::endl;
 }
 
 void draw_all (Program* ShaderProgram, const glm::mat4& view, const glm::mat4& projection) {
@@ -141,14 +153,14 @@ void draw_all (Program* ShaderProgram, const glm::mat4& view, const glm::mat4& p
         glBindVertexArray(data->vao);
         glDrawArrays(GL_TRIANGLES, 0, data->vertices.size() / 3);
     }
-
-    std::cout << "chunks drawn: " << chunksDrawn << std::endl;
+    // std::cout << "chunks drawn: " << chunksDrawn << std::endl;
 }
+
 private:
 
 unsigned int texture;
 
-std::unordered_set<glm::ivec3, IVec3Hash> current_needed_chunks;
+std::atomic<int> tasks_in_flight{0};
 
 std::unordered_set<glm::ivec3, IVec3Hash> m_pending_generation;
 std::mutex m_pending_mutex;
@@ -191,11 +203,6 @@ void generate_chunk (glm::ivec3 pos) {
     chunk.pos = pos;
     calculate_mesh(chunk); // this is the heavy stuff
     finished_mesh_queue.push(std::move(chunk));
-
-    {
-        std::lock_guard<std::mutex> lock(m_pending_mutex);
-        m_pending_generation.erase(pos);
-    }
 }
 
 void occlusion_culling (std::unordered_set<glm::ivec3, IVec3Hash>& viewable_chunks) {

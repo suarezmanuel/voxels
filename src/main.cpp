@@ -181,11 +181,12 @@ int main() {
         std::unordered_set<glm::ivec3, IVec3Hash> current_required_chunks;
         generator_helper::calculate_required_chunks(current_required_chunks);
 
+        gen->prune_unnecessary_chunks(current_required_chunks);
         gen->start_generation_tasks(current_required_chunks);
-        gen->prune_unnecessary_chunks();
-        gen->process_finished_mesh();
+        gen->print_task_count();
+        gen->process_finished_mesh(current_required_chunks);
+        gen->print_task_count();
         gen->draw_all(ShaderProgram, view, projection);
-
 
         glUseProgram(CrosshairProgram->get_id());
         glm::mat4 gizmoModel = glm::mat4(1.0f);
